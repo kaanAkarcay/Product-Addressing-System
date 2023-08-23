@@ -31,3 +31,8 @@
 /Users/tcmaximus/Desktop/React-native/API/API/obj/Debug/net7.0/API.pdb
 /Users/tcmaximus/Desktop/React-native/API/API/obj/Debug/net7.0/API.genruntimeconfig.cache
 /Users/tcmaximus/Desktop/React-native/API/API/obj/Debug/net7.0/ref/API.dll
+/Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.dll
+/Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Relational.dll
+/Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/MySqlConnector.dll
+/Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Pomelo.EntityFrameworkCore.MySql.dll
