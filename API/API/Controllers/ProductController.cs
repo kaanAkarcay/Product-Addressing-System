@@ -15,7 +15,8 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly APIDbContext _context;
+        private readonly APIDbContext _context;//database instance
+
         public ProductController(APIDbContext context)
         {
             _context = context;
