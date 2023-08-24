@@ -1,9 +1,10 @@
-﻿namespace API.Entities
+﻿using System.ComponentModel.DataAnnotations;
+namespace API.Entities
 {
 	public class ProductEntity
     {
-		
-		public int Barcode { get; set; }
+        [Key]
+		public long Barcode { get; set; }
 		public required string Product_Name { get; set; }
 		public required string Sex { get; set; }
         // Foreign key

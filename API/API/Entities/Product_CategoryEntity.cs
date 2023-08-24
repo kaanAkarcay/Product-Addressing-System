@@ -1,7 +1,9 @@
-﻿namespace API.Entities
+﻿using System.ComponentModel.DataAnnotations;
+namespace API.Entities
 {
 	public class Product_CategoryEntity
     {
+        [Key]
 		public int Product_Category_ID { get; set; }
 		public required string Product_Category_Name { get; set; }
 
