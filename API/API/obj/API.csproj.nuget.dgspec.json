@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/tcmaximus/Desktop/React-native/API/API/API.csproj": {}
+    "/Users/tcmaximus/Desktop/react-expo/React-native/API/API/API.csproj": {}
   },
   "projects": {
-    "/Users/tcmaximus/Desktop/React-native/API/API/API.csproj": {
+    "/Users/tcmaximus/Desktop/react-expo/React-native/API/API/API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/tcmaximus/Desktop/React-native/API/API/API.csproj",
+        "projectUniqueName": "/Users/tcmaximus/Desktop/react-expo/React-native/API/API/API.csproj",
         "projectName": "API",
-        "projectPath": "/Users/tcmaximus/Desktop/React-native/API/API/API.csproj",
+        "projectPath": "/Users/tcmaximus/Desktop/react-expo/React-native/API/API/API.csproj",
         "packagesPath": "/Users/tcmaximus/.nuget/packages/",
-        "outputPath": "/Users/tcmaximus/Desktop/React-native/API/API/obj/",
+        "outputPath": "/Users/tcmaximus/Desktop/react-expo/React-native/API/API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/tcmaximus/.nuget/NuGet/NuGet.Config"
