@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
-import ProductDTO from '../dataModels/ProductDTO';
-import { Styles } from '../component/Styles';
+import ProductDTO from '../../dataModels/ProductDTO';
+import { Styles } from '../../component/Styles';
 
 const CreateProduct: React.FC = () => {
   const [product, setProduct] = useState<ProductDTO>({

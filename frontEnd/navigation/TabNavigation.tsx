@@ -2,8 +2,9 @@ import React from 'react';
 import { StyleSheet } from 'react-native'; // Import StyleSheet
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import InsertProduct from '../screens/InsertProduct';
-import CreateProduct from '../screens/CreateProduct';
-import HomeScreen2 from '../screens/Home2';
+import CreateProduct from '../screens/product/CreateProduct';
+import UpdateProduct from '../screens/product/UpdateProduct';
+import ReadProduct from '../screens/product/ReadProduct';
 
 const Tab = createBottomTabNavigator();
 export default function TabNavigation() {
@@ -14,10 +15,8 @@ export default function TabNavigation() {
       headerStyle: styles.header,
     }}>
       <Tab.Screen name="Add Product" component={InsertProduct} options={{ headerShown: false }} />
-
       <Tab.Screen name="Create Product" component={CreateProduct} options={{ headerShown: false, tabBarButton: () => null }} />
-
-      <Tab.Screen name="HomeScreen2" component={HomeScreen2} options={{ headerShown: false, tabBarButton: () => null }} />
+      <Tab.Screen name="Update Product" component={UpdateProduct} options={{ headerShown: false, tabBarButton: () => null }} />
     </Tab.Navigator>
   );
 }

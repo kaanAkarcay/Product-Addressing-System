@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity,StyleSheet } from 'react-native';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
-import HomeScreen2 from '../screens/Home2';
 
 // Define the menu data structure
 const drawerMenu = [
@@ -9,9 +8,9 @@ const drawerMenu = [
       title: 'Products',
       menuList: [
         { title: 'Create Product', screenName: 'Create Product' },
-        { title: 'Read Product', screenName: 'HomeScreen2' },
-        { title: 'Update Product', screenName: 'HomeScreen' },
-        { title: 'Delete Product', screenName: 'HomeScreen2' },
+        { title: 'Read Product', screenName: 'Read Product' },
+        { title: 'Update Product', screenName: 'Update Product' },
+        { title: 'Delete Product', screenName: 'Delete Product' },
        
       ],
       

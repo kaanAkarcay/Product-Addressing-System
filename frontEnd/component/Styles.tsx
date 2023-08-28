@@ -44,5 +44,13 @@ export const Styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 2,
       },
+      productDetails: {
+        marginTop: 20,
+        backgroundColor: 'white',
+        padding: 10,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#ccc',
+      },
   });
   

@@ -28,3 +28,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+// import DataHandler from './DataHandler';
+
+// const App: React.FC = () => {
+//   return (
+//     <DataHandler>
+//       {(dataStore) => (
+//         <div>
+//           {/* Your components here */}
+//         </div>
+//       )}
+//     </DataHandler>
+//   );
+// };
+
+// export default App;
