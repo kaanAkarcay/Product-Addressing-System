@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity,StyleSheet } from 'react-native';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
-import HomeScreen from '../screens/Home';
 import HomeScreen2 from '../screens/Home2';
 
 // Define the menu data structure
@@ -9,7 +8,7 @@ const drawerMenu = [
     {
       title: 'Products',
       menuList: [
-        { title: 'Create Product', screenName: 'HomeScreen' },
+        { title: 'Create Product', screenName: 'Create Product' },
         { title: 'Read Product', screenName: 'HomeScreen2' },
         { title: 'Update Product', screenName: 'HomeScreen' },
         { title: 'Delete Product', screenName: 'HomeScreen2' },
@@ -18,7 +17,7 @@ const drawerMenu = [
       
     },
     {
-        title: 'Brand',
+        title: 'Brands',
         menuList: [
           { title: 'Create Brand', screenName: 'HomeScreen' },
           { title: 'Read Brand', screenName: 'HomeScreen2' },
@@ -28,7 +27,28 @@ const drawerMenu = [
         ],
         
       },
-   
+      {
+        title: 'Product Categories',
+        menuList: [
+          { title: 'Create Product Category', screenName: 'HomeScreen' },
+          { title: 'Read Product Category', screenName: 'HomeScreen2' },
+          { title: 'Update Product Category', screenName: 'HomeScreen' },
+          { title: 'Delete Product Category', screenName: 'HomeScreen2' },
+         
+        ],
+        
+      },
+      {
+        title: 'Shelfs',
+        menuList: [
+          { title: 'Create Shelf', screenName: 'HomeScreen' },
+          { title: 'Read Shelf', screenName: 'HomeScreen2' },
+          { title: 'Update Shelf', screenName: 'HomeScreen' },
+          { title: 'Delete Shelf', screenName: 'HomeScreen2' },
+         
+        ],
+        
+      },
     // Add more menu items as needed
   ];
 
