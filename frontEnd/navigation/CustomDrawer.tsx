@@ -18,10 +18,10 @@ const drawerMenu = [
     {
         title: 'Brands',
         menuList: [
-          { title: 'Create Brand', screenName: 'HomeScreen' },
-          { title: 'Read Brand', screenName: 'HomeScreen2' },
-          { title: 'Update Brand', screenName: 'HomeScreen' },
-          { title: 'Delete Brand', screenName: 'HomeScreen2' },
+          { title: 'Create Brand', screenName: 'Create Brand' },
+          { title: 'Read Brand', screenName: 'Read Brand' },
+          { title: 'Update Brand', screenName: 'Update Brand' },
+          { title: 'Delete Brand', screenName: 'Delete Brand' },
          
         ],
         
@@ -29,10 +29,10 @@ const drawerMenu = [
       {
         title: 'Product Categories',
         menuList: [
-          { title: 'Create Product Category', screenName: 'HomeScreen' },
-          { title: 'Read Product Category', screenName: 'HomeScreen2' },
-          { title: 'Update Product Category', screenName: 'HomeScreen' },
-          { title: 'Delete Product Category', screenName: 'HomeScreen2' },
+          { title: 'Create Product Category', screenName: 'Create Product Category' },
+          { title: 'Read Product Category', screenName: 'Read Product Category' },
+          { title: 'Update Product Category', screenName: 'Update Product Category' },
+          { title: 'Delete Product Category', screenName: 'Delete Product Category' },
          
         ],
         
@@ -40,10 +40,10 @@ const drawerMenu = [
       {
         title: 'Shelfs',
         menuList: [
-          { title: 'Create Shelf', screenName: 'HomeScreen' },
-          { title: 'Read Shelf', screenName: 'HomeScreen2' },
-          { title: 'Update Shelf', screenName: 'HomeScreen' },
-          { title: 'Delete Shelf', screenName: 'HomeScreen2' },
+          { title: 'Create Shelf', screenName: 'Create Shelf' },
+          { title: 'Read Shelf', screenName: 'Read Shelf' },
+          { title: 'Update Shelf', screenName: 'Update Shelf' },
+          { title: 'Delete Shelf', screenName: 'Delete Shelf' },
          
         ],
         

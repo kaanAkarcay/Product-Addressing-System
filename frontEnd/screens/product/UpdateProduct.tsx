@@ -22,10 +22,15 @@ const UpdateProduct: React.FC = () => {
     // Simulate fetching brand and product category
     const fetchedBrand = 'Sample Brand';
     const fetchedProductCategory = 'Sample Category';
-
-    setProduct(fetchedProduct);
-    setBrand(fetchedBrand);
-    setProductCategory(fetchedProductCategory);
+     if (fetchedProduct.Barcode.toLowerCase() === productId.toLowerCase()) {
+      setProduct(fetchedProduct);
+      setBrand(fetchedBrand);
+      setProductCategory(fetchedProductCategory);
+     }else{
+      setProduct(null);
+      
+     }
+   
   };
 
   const handleUpdateProduct = async () => {
@@ -39,6 +44,7 @@ const UpdateProduct: React.FC = () => {
       <TextInput
         style={Styles.input}
         placeholder="Enter Product ID"
+        keyboardType="numeric"
         onChangeText={setProductId}
         value={productId}
       />
@@ -58,6 +64,39 @@ const UpdateProduct: React.FC = () => {
 
       {product && (
         <View style={Styles.button}>
+          <TextInput
+        style={Styles.input}
+        placeholder="Barcode"
+        keyboardType="numeric"
+        onChangeText={(text) => setProduct({ ...product, Barcode: text })}
+        value={product.Barcode}
+      />
+      <TextInput
+        style={Styles.input}
+        placeholder="Product Name"
+        onChangeText={(text) => setProduct({ ...product, Product_Name: text })}
+        value={product.Product_Name}
+      />
+      <TextInput
+        style={Styles.input}
+        placeholder="Sex"
+        onChangeText={(text) => setProduct({ ...product, Sex: text })}
+        value={product.Sex}
+      />
+      <TextInput
+        style={Styles.input}
+        placeholder="Brand ID"
+        keyboardType="numeric"
+        onChangeText={(text) => setProduct({ ...product, Brand_ID: text })}
+        value={product.Brand_ID}
+      />
+      <TextInput
+        style={Styles.input}
+        placeholder="Product Category ID"
+        keyboardType="numeric"
+        onChangeText={(text) => setProduct({ ...product, Product_Category_ID: text })}
+        value={product.Product_Category_ID}
+      />
           <Button title="Update Product" onPress={handleUpdateProduct} />
         </View>
       )}

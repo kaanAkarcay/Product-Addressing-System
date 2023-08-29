@@ -19,7 +19,6 @@ const CreateBrand: React.FC = () => {
       <TextInput
         style={Styles.input}
         placeholder="Name"
-        keyboardType="numeric"
         onChangeText={(text) => setBrand({ ...brand, BrandName: text })}
         value={brand.BrandName}
       />
