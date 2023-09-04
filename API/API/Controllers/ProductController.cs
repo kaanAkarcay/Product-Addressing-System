@@ -27,44 +27,120 @@ namespace API.Controllers
             _productService = productService;
          
         }
-      
 
-        [HttpGet (Name= "getProducts")]
+        [HttpGet("getProduct", Name = "getProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<List<Product>>> getProducts()
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<string>>> getProduct(long barcode)
+        {
+            var product =await _productService.FindProductAsync(barcode);
+            if(product == null)
             {
-                return Ok(_productService.FindProductsAsync);
+                 ModelState.AddModelError("", "product is not exists!!");
+                return BadRequest(ModelState);
+            }
+            
+            return Ok(_productService.MapProductEntityToDtoJson(product));
+        }
+
+        [HttpGet ("getProducts")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<List<string>>>> getProducts()
+            {
+            List<Product> fetchedProducts =await _productService.FindProductsAsync();
+            if(fetchedProducts == null)
+            {
+                ModelState.AddModelError("", "error at fetching products!!");
+                return BadRequest(ModelState);
+            }
+                return Ok(_productService.MapProductEntitiesToDtoJson(fetchedProducts));
             }
 
+        [HttpDelete("deleteProduct")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<string>>> deleteProduct(long barcode)
+        {
+            var product = await _productService.FindProductAsync(barcode);
+            if (product == null)
+            {
+                ModelState.AddModelError("", "product is not exists!!");
+                return BadRequest(ModelState);
+            }
+            if (await _productService.DeleteAsync(product))
+            {
+                return Ok(_productService.MapProductEntityToDtoJson(product));
+            }
+            else
+            {
+                ModelState.AddModelError("", "error at Deleting product!!");
+                return BadRequest(ModelState);
 
+            }
+        }
+        [HttpPut ("updateProduct")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<ActionResult<IEnumerable<string>>> updateProduct(ProductDTO newProduct)
+        {
+            var product = await _productService.FindProductAsync(newProduct.Barcode);
+            var newBrand = await _productService.GetBrandAsync(newProduct.Brand);
+            var newProductCategory = await _productService.GetProductCategoryAsync(newProduct.ProductCategory);
+            if (product == null)
+            {
+                ModelState.AddModelError("", "product is not exists!!");
+                return BadRequest(ModelState);
+            }
+            product.ProductName = newProduct.ProductName;
+            product.Sex = newProduct.Sex;
+            product.Brand = newBrand;
+            product.BrandFId = newBrand.BrandId;
+            product.ProductCategory = newProductCategory;
+            product.ProductCategoryFId = newProductCategory.ProductCategoryId;
+            
+            if (await _productService.UpdateAsync(product))
+            {
+                return Ok(_productService.MapProductEntityToDtoJson(product));
+            }
+            else
+            {
+                ModelState.AddModelError("", "error at updating product!!");
+                return BadRequest(ModelState);
 
-
+            }
+        }
         [HttpPost ("createProduct")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<ProductDTO>> createProduct(ProductDTO product)
         {
-            Console.WriteLine("before parse *controller");
+
             if (product == null)
             {
                 return BadRequest(product);
             }
 
-            Console.WriteLine("before parse *controller");
+            //IT DOESNT CHECK FOR ALREADY EXISTING PRODUCTS
             string productDtoJson = JsonConvert.SerializeObject(product);
-            Console.WriteLine("Input is:"+productDtoJson);
+
             var Mproduct = await _productService.MapProductDtoToEntityAsync(productDtoJson);
-            Console.WriteLine("after parse *controller");   
-            //if (Mproduct == null) 
-            //{
-            //    ModelState.AddModelError("", "brand or category is not exists!!");
-            //    return BadRequest(ModelState);
-            //}
+            
+            if (Mproduct == null)
+            {
+                ModelState.AddModelError("", "brand or category is not exists!!");
+                return BadRequest(ModelState);
+            }
 
 
-            if(await _productService.CreateAsync(Mproduct))
-                return Ok(product);
+            if (await _productService.CreateAsync(Mproduct))
+                return CreatedAtRoute("getProduct", new { barcode = Mproduct.Barcode }, Mproduct);
+            //return Ok(product);
             //ProductDTO productDTO = JsonConvert.DeserializeObject<ProductDTO>(product);
             else
             {

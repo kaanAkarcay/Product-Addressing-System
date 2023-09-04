@@ -21,15 +21,26 @@ builder.Services.AddDbContext<Infrastructure.DbContext>(options =>
     ));
 
 var profileAssembly = Assembly.GetExecutingAssembly(); // Assuming Prgram.cs is in the main project
-builder.Services.AddAutoMapper(typeof(Program));
+//builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 // Repository registration
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IAdressRepository, AdressRepository>();
+builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+builder.Services.AddScoped<IShelfRepository, ShelfRepository>();
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+
+
+
 
 // Service registration
-//builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<BrandService>();
+builder.Services.AddScoped<ProductCategoryService>();
+builder.Services.AddScoped<ShelfService>();
+builder.Services.AddScoped<AdressService>();
+
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

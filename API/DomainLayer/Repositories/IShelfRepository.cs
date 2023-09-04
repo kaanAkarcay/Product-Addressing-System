@@ -5,6 +5,8 @@ namespace DomainLayer.Repositories
 {
 	public interface IShelfRepository: IRepository<Shelf>
 	{
-	}
+        Task<Shelf> FindByShelfIdAsync(string shelfId);
+
+    }
 }
 

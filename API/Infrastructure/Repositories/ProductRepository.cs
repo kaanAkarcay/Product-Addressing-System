@@ -1,5 +1,6 @@
 ﻿using System;
 using DomainLayer.Repositories;
+using Microsoft.EntityFrameworkCore;
 using DomainLayer.Models;
 using DomainLayer.SeedWork;
 
@@ -11,9 +12,9 @@ namespace Infrastructure.Repositories
 		{
 		}
         
-        public Task<Product> FindByBarcodeAsync(long barcode)
+        public async Task<Product> FindByBarcodeAsync(long barcode)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Set<Product>().SingleOrDefaultAsync(x => x.Barcode == barcode);
         }
         
     }

@@ -15,6 +15,108 @@ namespace DomainLayer.Services
             return await _uow.ProductRepository.FindAllAsync();
         }
 
+        public async Task<Product> FindProductAsync(long barcode)
+        {
+            try
+            {
+                var product = await _uow.ProductRepository.FindByBarcodeAsync(barcode);
+                return product; // This can be null if no product was found.
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if needed
+                // For now, we just return null to indicate a failure.
+                return null;
+            }
+        }
+
+        public string MapProductEntitiesToDtoJson(List<Product> products)
+        {
+            if (products == null || !products.Any())
+                return null;
+
+            var jsonArray = new JArray();
+
+            foreach (var product in products)
+            {
+                var jsonObject = new JObject
+                {
+                    ["Barcode"] = product.Barcode,
+                    ["ProductName"] = product.ProductName,
+                    ["Sex"] = product.Sex,
+                };
+
+                if (product.Brand != null)
+                {
+                    jsonObject["Brand"] = product.Brand.BrandName ?? "";
+                }
+                else
+                {
+                    jsonObject["Brand"] = "";
+                }
+
+                if (product.ProductCategory != null)
+                {
+                    jsonObject["ProductCategory"] = product.ProductCategory.ProductsCategoryName ?? "";
+                }
+                else
+                {
+                    jsonObject["ProductCategory"] = "";
+                }
+
+                jsonArray.Add(jsonObject);
+            }
+
+            return jsonArray.ToString();
+        }
+
+        public string MapProductEntityToDtoJson(Product product)
+        {
+            if (product == null)
+                return null;
+
+            var jsonObject = new JObject
+            {
+                ["Barcode"] = product.Barcode,
+                ["ProductName"] = product.ProductName,
+                ["Sex"] = product.Sex,
+            };
+
+            if (product.Brand != null)
+            {
+                jsonObject["Brand"] = product.Brand.BrandName ?? "";
+            }
+            else
+            {
+                jsonObject["Brand"] = "";
+            }
+
+            if (product.ProductCategory != null)
+            {
+                jsonObject["ProductCategory"] = product.ProductCategory.ProductsCategoryName ?? "";
+            }
+            else
+            {
+                jsonObject["ProductCategory"] = "";
+            }
+
+            return jsonObject.ToString();
+        }
+        public async Task<Brand> GetBrandAsync(string name)
+        {
+            var brand = await _uow.BrandRepository.FindByNameAsync(name);
+            if (brand == null)
+                return null; // Handle error condition here
+
+            return brand;
+        }
+        public async Task<ProductCategory> GetProductCategoryAsync(string name)
+        {
+            var productCategory = await _uow.ProductCategoryRepository.FindByNameAsync(name);
+            if (productCategory == null)
+                return null;
+            return productCategory;
+        }
         public async Task<Product> MapProductDtoToEntityAsync(string productDtoJson)
         {
             Console.WriteLine("triggered");
