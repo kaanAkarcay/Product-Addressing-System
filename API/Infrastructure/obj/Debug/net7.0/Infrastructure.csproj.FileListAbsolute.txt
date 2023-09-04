@@ -1,0 +1,17 @@
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/bin/Debug/net7.0/Infrastructure.deps.json
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/bin/Debug/net7.0/Infrastructure.runtimeconfig.json
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/bin/Debug/net7.0/Infrastructure.dll
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/bin/Debug/net7.0/Infrastructure.pdb
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/bin/Debug/net7.0/DomainLayer.dll
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/bin/Debug/net7.0/DomainLayer.pdb
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/obj/Debug/net7.0/Infrastructure.csproj.AssemblyReference.cache
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/obj/Debug/net7.0/Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/obj/Debug/net7.0/Infrastructure.AssemblyInfoInputs.cache
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/obj/Debug/net7.0/Infrastructure.AssemblyInfo.cs
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/obj/Debug/net7.0/Infrastructure.csproj.CoreCompileInputs.cache
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/obj/Debug/net7.0/Infrastructure.csproj.CopyComplete
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/obj/Debug/net7.0/Infrastructure.dll
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/obj/Debug/net7.0/refint/Infrastructure.dll
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/obj/Debug/net7.0/Infrastructure.pdb
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/obj/Debug/net7.0/Infrastructure.genruntimeconfig.cache
+/Users/tcmaximus/Desktop/React-native/API/Infrastructure/obj/Debug/net7.0/ref/Infrastructure.dll

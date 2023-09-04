@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/tcmaximus/Desktop/react-expo/React-native/API/API/API.csproj": {}
+    "/Users/tcmaximus/Desktop/React-native/API/API/API.csproj": {}
   },
   "projects": {
-    "/Users/tcmaximus/Desktop/react-expo/React-native/API/API/API.csproj": {
+    "/Users/tcmaximus/Desktop/React-native/API/API/API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/tcmaximus/Desktop/react-expo/React-native/API/API/API.csproj",
+        "projectUniqueName": "/Users/tcmaximus/Desktop/React-native/API/API/API.csproj",
         "projectName": "API",
-        "projectPath": "/Users/tcmaximus/Desktop/react-expo/React-native/API/API/API.csproj",
+        "projectPath": "/Users/tcmaximus/Desktop/React-native/API/API/API.csproj",
         "packagesPath": "/Users/tcmaximus/.nuget/packages/",
-        "outputPath": "/Users/tcmaximus/Desktop/react-expo/React-native/API/API/obj/",
+        "outputPath": "/Users/tcmaximus/Desktop/React-native/API/API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/tcmaximus/.nuget/NuGet/NuGet.Config"
@@ -27,7 +27,14 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/tcmaximus/Desktop/React-native/API/DomainLayer/DomainLayer.csproj": {
+                "projectPath": "/Users/tcmaximus/Desktop/React-native/API/DomainLayer/DomainLayer.csproj"
+              },
+              "/Users/tcmaximus/Desktop/React-native/API/Infrastructure/Infrastructure.csproj": {
+                "projectPath": "/Users/tcmaximus/Desktop/React-native/API/Infrastructure/Infrastructure.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -40,6 +47,14 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.10, )"
@@ -78,6 +93,144 @@
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
             },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.307/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/tcmaximus/Desktop/React-native/API/DomainLayer/DomainLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/tcmaximus/Desktop/React-native/API/DomainLayer/DomainLayer.csproj",
+        "projectName": "DomainLayer",
+        "projectPath": "/Users/tcmaximus/Desktop/React-native/API/DomainLayer/DomainLayer.csproj",
+        "packagesPath": "/Users/tcmaximus/.nuget/packages/",
+        "outputPath": "/Users/tcmaximus/Desktop/React-native/API/DomainLayer/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/tcmaximus/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.307/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/tcmaximus/Desktop/React-native/API/Infrastructure/Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/tcmaximus/Desktop/React-native/API/Infrastructure/Infrastructure.csproj",
+        "projectName": "Infrastructure",
+        "projectPath": "/Users/tcmaximus/Desktop/React-native/API/Infrastructure/Infrastructure.csproj",
+        "packagesPath": "/Users/tcmaximus/.nuget/packages/",
+        "outputPath": "/Users/tcmaximus/Desktop/React-native/API/Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/tcmaximus/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Users/tcmaximus/Desktop/React-native/API/DomainLayer/DomainLayer.csproj": {
+                "projectPath": "/Users/tcmaximus/Desktop/React-native/API/DomainLayer/DomainLayer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

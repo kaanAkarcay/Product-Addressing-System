@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Repositories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DomainLayer\DomainLayer.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Migrations\20230901114923_InitialMigration.cs" />
+    <Compile Remove="Migrations\20230901114923_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20230901115445_InitialMigration.cs" />
+    <Compile Remove="Migrations\20230901115445_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20230901122551_InitialMigration.cs" />
+    <Compile Remove="Migrations\20230901122551_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20230901130507_InitialMigration.cs" />
+    <Compile Remove="Migrations\20230901130507_InitialMigration.Designer.cs" />
+  </ItemGroup>
+</Project>

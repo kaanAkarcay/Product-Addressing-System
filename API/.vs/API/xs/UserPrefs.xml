@@ -1,41 +1,47 @@
 ﻿<Properties StartupConfiguration="{ABC99269-9BF3-4533-8A66-D3248BF915D7}|https">
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.API PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="API/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Infrastructure/DbContext.cs">
     <Files>
       <File FileName="API/Controllers/ProductController.cs" Line="19" Column="1" />
-      <File FileName="API/Entities/ProductEntity.cs" Line="5" Column="6" />
+      <File FileName="API/Entities/ProductEntity.cs" Line="6" Column="1" />
       <File FileName="API/Models/DTO/ProductDTO.cs" Line="7" Column="44" />
-      <File FileName="API/Data/DataStore.cs" Line="3" Column="2" />
+      <File FileName="API/Data/DataStore.cs" />
       <File FileName="API/Program.cs" Line="44" Column="1" />
-      <File FileName="API/Entities/AdressEntity.cs" Line="6" Column="8" />
-      <File FileName="API/Entities/BrandEntity.cs" Line="1" Column="1" />
-      <File FileName="API/Entities/Product_CategoryEntity.cs" Line="6" Column="13" />
-      <File FileName="API/Entities/ShelfEntity.cs" Line="14" Column="1" />
-      <File FileName="API/appsettings.json" Line="3" Column="90" />
+      <File FileName="API/Entities/AdressEntity.cs" Line="19" Column="50" />
+      <File FileName="API/Entities/BrandEntity.cs" Line="6" Column="1" />
+      <File FileName="API/Entities/Product_CategoryEntity.cs" Line="6" Column="1" />
+      <File FileName="API/Entities/ShelfEntity.cs" Line="6" Column="1" />
+      <File FileName="API/appsettings.json" />
+      <File FileName="API/Data/APIDbContext.cs" Line="11" Column="50" />
+      <File FileName="DomainLayer/IUnitOfWork.cs" Line="16" Column="37" />
+      <File FileName="DomainLayer/SeedWork/Entity.cs" Line="4" Column="17" />
+      <File FileName="DomainLayer/SeedWork/IRepository.cs" Line="14" Column="33" />
+      <File FileName="DomainLayer/Models/Product.cs" Line="24" Column="1" />
+      <File FileName="DomainLayer/Models/Brand.cs" Line="10" Column="25" />
+      <File FileName="DomainLayer/Models/ProductCategory.cs" Line="11" Column="40" />
+      <File FileName="DomainLayer/Models/Adress.cs" Line="18" Column="25" />
+      <File FileName="DomainLayer/Models/Shelf.cs" Line="10" Column="39" />
+      <File FileName="DomainLayer/Repositories/IProductRepository.cs" Line="2" Column="1" />
+      <File FileName="DomainLayer/Repositories/IAdressRepository.cs" Line="8" Column="1" />
+      <File FileName="DomainLayer/Repositories/IBrandRepository.cs" Line="6" Column="54" />
+      <File FileName="DomainLayer/Repositories/IProductCategoryRepository.cs" Line="6" Column="74" />
+      <File FileName="DomainLayer/Repositories/IShelfRepository.cs" Line="6" Column="54" />
+      <File FileName="Infrastructure/DbContext.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="API" expanded="True">
-            <Node name="API" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Data" expanded="True" />
-              <Node name="Entities" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="DTO" expanded="True" />
-              </Node>
-              <Node name="Properties" expanded="True" />
-              <Node name="appsettings.json" expanded="True" />
-            </Node>
+            <Node name="DomainLayer" selected="True" />
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.API PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

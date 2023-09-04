@@ -1,11 +1,14 @@
 ﻿using System;
-using API.Data;
+using DomainLayer.Services;
+using API.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using API.Models.DTO;
 using Microsoft.EntityFrameworkCore;
+using DomainLayer.Models;
+using Newtonsoft.Json;
+
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,75 +16,63 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductController : ControllerBase 
     {
-        private readonly APIDbContext _context;//database instance
 
-        public ProductController(APIDbContext context)
+        private readonly ProductService _productService;
+       
+
+        public ProductController(ProductService productService)
         {
-            _context = context;
+            _productService = productService;
+         
         }
+      
 
-        [HttpGet]
-        public ActionResult<IEnumerable<ProductDTO>> getProducts()
-        {
-            return Ok(DataStore.products);
-        }
-
-
-
-        [HttpGet("{id:long}", Name= "getProduct")]
-        //[ProducesResponseType(200, Type=typeof(ProductDTO))]
+        [HttpGet (Name= "getProducts")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        // [HttpGet(Name = "GetWeatherForecast")]
-        public ActionResult<ProductDTO> getProduct(int id)
-        {
-            if (id == 0)
+        public ActionResult<IEnumerable<List<Product>>> getProducts()
             {
-                return BadRequest();
+                return Ok(_productService.FindProductsAsync);
             }
-            var product = DataStore.products.FirstOrDefault(u => u.Barcode == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(product);
-            }
-        }
 
 
 
-        [HttpPost]
+
+        [HttpPost ("createProduct")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public ActionResult<ProductDTO> createProduct([FromBody]ProductDTO product)
+        public async Task<ActionResult<ProductDTO>> createProduct(ProductDTO product)
         {
+            Console.WriteLine("before parse *controller");
             if (product == null)
             {
                 return BadRequest(product);
             }
-            //if (product.Barcode < 100000)//invalid barcode
+
+            Console.WriteLine("before parse *controller");
+            string productDtoJson = JsonConvert.SerializeObject(product);
+            Console.WriteLine("Input is:"+productDtoJson);
+            var Mproduct = await _productService.MapProductDtoToEntityAsync(productDtoJson);
+            Console.WriteLine("after parse *controller");   
+            //if (Mproduct == null) 
             //{
-            //    return StatusCode(StatusCodes.Status500InternalServerError);
+            //    ModelState.AddModelError("", "brand or category is not exists!!");
+            //    return BadRequest(ModelState);
             //}
-            if (DataStore.products.FirstOrDefault(u => u.Barcode == product.Barcode) != null)
+
+
+            if(await _productService.CreateAsync(Mproduct))
+                return Ok(product);
+            //ProductDTO productDTO = JsonConvert.DeserializeObject<ProductDTO>(product);
+            else
             {
-                ModelState.AddModelError("", "That Product is already exists!!");
+                ModelState.AddModelError("", "failed to create!!");
                 return BadRequest(ModelState);
             }
-                if (DataStore.products.FirstOrDefault(u=>u.Product_Name.ToLower() == product.Product_Name.ToLower() ) != null)
-            {
-                ModelState.AddModelError("", "A Product with that name already exists!!");
-                return BadRequest(ModelState);
-            }
-            DataStore.products.Add(product);
-            //return Ok(product);
-            return CreatedAtRoute("getProduct",new { id = product.Barcode },product);
+
+            //return CreatedAtRoute("getProduct", new { id = product.Barcode }, product);
         }
     }
 }

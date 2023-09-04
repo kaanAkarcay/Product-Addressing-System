@@ -1,4 +1,10 @@
-﻿using API.Data;
+﻿using System.Reflection;
+using DomainLayer;
+using DomainLayer.Repositories;
+using DomainLayer.Services;
+using Infrastructure;
+using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
@@ -8,11 +14,24 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 //add dbcontext configurations
-builder.Services.AddDbContext<APIDbContext>(options =>
+builder.Services.AddDbContext<Infrastructure.DbContext>(options =>
        options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         new MySqlServerVersion(new Version(8, 0, 21)) // Specify your MySQL version here
     ));
+
+var profileAssembly = Assembly.GetExecutingAssembly(); // Assuming Prgram.cs is in the main project
+builder.Services.AddAutoMapper(typeof(Program));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+// Repository registration
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+// Service registration
+//builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ProductService>();
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -21,6 +40,21 @@ var app = builder.Build();
 
 
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var dbContext = services.GetRequiredService<Infrastructure.DbContext>();
+
+    try
+    {
+        dbContext.Database.Migrate();
+        Console.WriteLine("Database migration applied successfully.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"An error occurred while applying the database migration: {ex.Message}");
+    }
+}
 
 
 
@@ -28,7 +62,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<APIDbContext>();
+    var context = services.GetRequiredService<Infrastructure.DbContext>();
 
     try
     {
