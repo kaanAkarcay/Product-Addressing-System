@@ -8,7 +8,7 @@ namespace DomainLayer.Services
 		public AdressService(IUnitOfWork unitOfWork): base(unitOfWork)
 		{
 		}
-
-	}
+        //implement insertsion and removal Logic
+    }
 }
 

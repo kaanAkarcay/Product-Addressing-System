@@ -1,47 +1,76 @@
 ﻿<Properties StartupConfiguration="{ABC99269-9BF3-4533-8A66-D3248BF915D7}|https">
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Infrastructure/DbContext.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DomainLayer/Models/Adress.cs">
     <Files>
-      <File FileName="API/Controllers/ProductController.cs" Line="19" Column="1" />
-      <File FileName="API/Entities/ProductEntity.cs" Line="6" Column="1" />
-      <File FileName="API/Models/DTO/ProductDTO.cs" Line="7" Column="44" />
-      <File FileName="API/Data/DataStore.cs" />
-      <File FileName="API/Program.cs" Line="44" Column="1" />
-      <File FileName="API/Entities/AdressEntity.cs" Line="19" Column="50" />
-      <File FileName="API/Entities/BrandEntity.cs" Line="6" Column="1" />
-      <File FileName="API/Entities/Product_CategoryEntity.cs" Line="6" Column="1" />
-      <File FileName="API/Entities/ShelfEntity.cs" Line="6" Column="1" />
-      <File FileName="API/appsettings.json" />
-      <File FileName="API/Data/APIDbContext.cs" Line="11" Column="50" />
-      <File FileName="DomainLayer/IUnitOfWork.cs" Line="16" Column="37" />
-      <File FileName="DomainLayer/SeedWork/Entity.cs" Line="4" Column="17" />
-      <File FileName="DomainLayer/SeedWork/IRepository.cs" Line="14" Column="33" />
-      <File FileName="DomainLayer/Models/Product.cs" Line="24" Column="1" />
-      <File FileName="DomainLayer/Models/Brand.cs" Line="10" Column="25" />
-      <File FileName="DomainLayer/Models/ProductCategory.cs" Line="11" Column="40" />
-      <File FileName="DomainLayer/Models/Adress.cs" Line="18" Column="25" />
-      <File FileName="DomainLayer/Models/Shelf.cs" Line="10" Column="39" />
-      <File FileName="DomainLayer/Repositories/IProductRepository.cs" Line="2" Column="1" />
-      <File FileName="DomainLayer/Repositories/IAdressRepository.cs" Line="8" Column="1" />
-      <File FileName="DomainLayer/Repositories/IBrandRepository.cs" Line="6" Column="54" />
-      <File FileName="DomainLayer/Repositories/IProductCategoryRepository.cs" Line="6" Column="74" />
-      <File FileName="DomainLayer/Repositories/IShelfRepository.cs" Line="6" Column="54" />
-      <File FileName="Infrastructure/DbContext.cs" Line="1" Column="1" />
+      <File FileName="API/Models/ProductDTO.cs" Line="14" Column="1" />
+      <File FileName="DomainLayer/Services/ProductService.cs" Line="1" Column="1" />
+      <File FileName="API/Controllers/ProductController.cs" Line="152" Column="10" />
+      <File FileName="Infrastructure/Repositories/BrandRepository.cs" Line="29" Column="1" />
+      <File FileName="Infrastructure/UnitOfWork.cs" Line="44" Column="10" />
+      <File FileName="DomainLayer/Models/Product.cs" Line="23" Column="1" />
+      <File FileName="API/Models/BrandDTO.cs" Line="7" Column="41" />
+      <File FileName="DomainLayer/Models/Brand.cs" Line="15" Column="1" />
+      <File FileName="DomainLayer/Models/Adress.cs" Line="24" Column="2" />
+      <File FileName="DomainLayer/Models/Shelf.cs" Line="10" Column="51" />
+      <File FileName="DomainLayer/Models/ProductCategory.cs" Line="10" Column="1" />
+      <File FileName="DomainLayer/Services/Service.cs" Line="45" Column="4" />
+      <File FileName="Infrastructure/Repositories/Repository.cs" Line="49" Column="1" />
+      <File FileName="Infrastructure/DbContext.cs" Line="44" Column="5" />
+      <File FileName="DomainLayer/SeedWork/IRepository.cs" Line="6" Column="8" />
+      <File FileName="API/Program.cs" Line="42" Column="41" />
+      <File FileName="Infrastructure/Repositories/ProductRepository.cs" Line="17" Column="100" />
+      <File FileName="DomainLayer/IUnitOfWork.cs" Line="1" Column="1" />
+      <File FileName="API/Controllers/BrandController.cs" Line="103" Column="1" />
+      <File FileName="DomainLayer/Services/BrandService.cs" Line="1" Column="1" />
+      <File FileName="DomainLayer/Services/ProductCategoryService.cs" Line="29" Column="29" />
+      <File FileName="API/Controllers/ProductCategoryController.cs" Line="133" Column="10" />
+      <File FileName="API/Models/ProductCategoryDTO.cs" Line="11" Column="1" />
+      <File FileName="Infrastructure/Repositories/ShelfRepository.cs" Line="19" Column="85" />
+      <File FileName="API/Models/AdressDTO.cs" Line="2" Column="1" />
+      <File FileName="API/Models/ShelfDTO.cs" Line="10" Column="1" />
+      <File FileName="DomainLayer/Services/ShelfService.cs" Line="15" Column="75" />
+      <File FileName="DomainLayer/Services/AdressService.cs" Line="15" Column="1" />
+      <File FileName="API/Controllers/ShelfController.cs" Line="1" Column="1" />
+      <File FileName="DomainLayer/Repositories/IProductCategoryRepository.cs" Line="1" Column="1" />
+      <File FileName="DomainLayer/Repositories/IShelfRepository.cs" Line="8" Column="19" />
+      <File FileName="DomainLayer/Repositories/IProductRepository.cs" Line="9" Column="56" />
+      <File FileName="API/Controllers/AdressController.cs" Line="24" Column="43" />
+      <File FileName="Infrastructure/Repositories/AdressRepository.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="API" expanded="True">
-            <Node name="DomainLayer" selected="True" />
+          <Node name="API">
+            <Node name="API" expanded="True">
+              <Node name="Dependencies" expanded="True" />
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
+            </Node>
+            <Node name="DomainLayer" expanded="True">
+              <Node name="Models" expanded="True" />
+              <Node name="Repositories" expanded="True" />
+              <Node name="SeedWork" expanded="True" />
+              <Node name="Services" expanded="True" />
+            </Node>
+            <Node name="Infrastructure" expanded="True">
+              <Node name="Dependencies" expanded="True" />
+              <Node name="Repositories" expanded="True" />
+            </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.API PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/tcmaximus/Desktop/React-native/API/API/Controllers/BrandController.cs" relfile="API/Controllers/BrandController.cs" line="125" column="1" />
+      <Breakpoint file="/Users/tcmaximus/Desktop/React-native/API/DomainLayer/Services/Service.cs" relfile="DomainLayer/Services/Service.cs" line="14" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

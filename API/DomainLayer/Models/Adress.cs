@@ -9,8 +9,8 @@ namespace DomainLayer.Models
         [Key]
         public required string AdressBarcode { get; set; }
         public int ProductAmount { get; set; }
-        public int Row { get; set; }
-        public int Column { get; set; }
+        public int Row { get; set; }//5
+        public int Column { get; set; }//10
         public int Face { get; set; }
 
         //Foreign keys
