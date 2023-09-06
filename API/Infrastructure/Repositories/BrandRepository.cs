@@ -16,7 +16,7 @@ namespace Infrastructure.Repositories
         {
             try
             {
-                return await _dbContext.brands.FirstAsync(p => p.BrandName == name);
+                return await _dbContext.Set<Brand>().SingleOrDefaultAsync(x => x.BrandName == name);
             }
             catch (InvalidOperationException)
             {

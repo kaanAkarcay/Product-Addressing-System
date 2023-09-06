@@ -19,6 +19,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.10" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DomainLayer\DomainLayer.csproj" />
@@ -32,5 +33,7 @@
     <Compile Remove="Migrations\20230901122551_InitialMigration.Designer.cs" />
     <Compile Remove="Migrations\20230901130507_InitialMigration.cs" />
     <Compile Remove="Migrations\20230901130507_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20230905104838_InitialMigration.cs" />
+    <Compile Remove="Migrations\20230905104838_InitialMigration.Designer.cs" />
   </ItemGroup>
 </Project>

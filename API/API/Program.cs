@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -26,10 +27,14 @@ var profileAssembly = Assembly.GetExecutingAssembly(); // Assuming Prgram.cs is 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 // Repository registration
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IAdressRepository, AdressRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<IShelfRepository, ShelfRepository>();
 builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+builder.Services.AddScoped<IProductShelfDedicationRepository, ProductShelfDedicationRepository>();
+builder.Services.AddScoped<IProductAddressingRepository, ProductAddressingRepository>();
+
+
 
 
 
@@ -39,17 +44,23 @@ builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<BrandService>();
 builder.Services.AddScoped<ProductCategoryService>();
 builder.Services.AddScoped<ShelfService>();
-builder.Services.AddScoped<AdressService>();
+builder.Services.AddScoped<AddressService>();
+builder.Services.AddScoped<ProductAddressingService>();
+builder.Services.AddScoped<ProductShelfDedicationService>();
 
 
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-
 
 using (var scope = app.Services.CreateScope())
 {

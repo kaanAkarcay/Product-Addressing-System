@@ -119,6 +119,7 @@ namespace DomainLayer.Services
         }
         public async Task<Product> MapProductDtoToEntityAsync(string productDtoJson)
         {
+            //FİX WİTH NEW ENTİTİES AND PRODUCT
             Console.WriteLine("triggered");
             JObject jsonObject = JObject.Parse(productDtoJson);
             Console.WriteLine("parsed bro: "+ jsonObject);
@@ -159,6 +160,7 @@ namespace DomainLayer.Services
                 Brand = brand,
                 ProductCategory = productCategory
             };
+
         }
 
 

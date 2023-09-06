@@ -4,13 +4,19 @@ using DomainLayer.SeedWork;
 
 namespace DomainLayer.Models
 {
-	public class Shelf : Entity
+    public class Shelf : Entity
     {
         [Key]
-        public required string ShelfId { get; set; }
+        public int ShelfId { get; set; }
+        public required string ShelfName { get; set; }
+        public required int Face { get; set; }
+        public required int Row {get; set;}
+        public required int Column { get; set; }
+        //public Address address { get; set; }
 
 
-        public  ICollection<Adress>? Adresses { get; set; }
+
+        public required ICollection<Address> Addresses { get; set; }
     }
 }
 

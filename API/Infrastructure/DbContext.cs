@@ -5,10 +5,15 @@ namespace Infrastructure
     public class DbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         public DbSet<Product> products { get; set; }
-        public DbSet<Adress> adresses { get; set; }
+        public DbSet<Address> addresses { get; set; }
         public DbSet<Brand> brands { get; set; }
         public DbSet<ProductCategory> productCategories { get; set; }
         public DbSet<Shelf> shelves { get; set; }
+        public DbSet<ProductAddresing> productAddresings { get; set; }
+        public DbSet<ProductShelfDedication> productShelfDedications { get; set; }
+
+
+ 
 
 
 
@@ -19,6 +24,7 @@ namespace Infrastructure
             {
                 optionsBuilder.UseMySql("server=localhost;port=8889;database=Flo;user=root;password=root;TreatTinyAsBoolean=true;",
                          new MySqlServerVersion(new Version(8, 0, 21)));
+  
             }
         }
 
@@ -27,37 +33,91 @@ namespace Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Product>()
-        .HasOne(p => p.Brand)
-        .WithMany(b => b.Products)
-        .HasForeignKey(p => p.BrandFId)
-        .OnDelete(DeleteBehavior.SetNull)
-        .IsRequired(false); // This allows the BrandId to be nullable
-           // modelBuilder.Entity<Product>().Navigation(p => p.Brand).IsRequired(false);
 
+            modelBuilder.Entity<Brand>()
+                .Property(b => b.BrandId) // specifying the property
+                .ValueGeneratedOnAdd(); // indicating it's auto-generated
+
+
+            modelBuilder.Entity<ProductCategory>()
+                .Property(pc => pc.ProductCategoryId) // specifying the property
+                .ValueGeneratedOnAdd(); // indicating it's auto-generated
+
+            modelBuilder.Entity<Shelf>()
+                .Property(s => s.ShelfId) // specifying the property
+                .ValueGeneratedOnAdd(); // indicating it's auto-generated
+
+            // Product-Brand relationship
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Brand)
+                .WithMany(b => b.Products)
+                .HasForeignKey(p => p.BrandFId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .IsRequired(false);
+
+            // Product-ProductCategory relationship
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.ProductCategory)
                 .WithMany(b => b.Products)
                 .HasForeignKey(p => p.ProductCategoryFId)
                 .OnDelete(DeleteBehavior.SetNull)
-                .IsRequired(false); // This allows the ProductCategoryId to be nullable
-                                    //base.OnModelCreating(modelBuilder);
-                                    // modelBuilder.Entity<Product>().Navigation(p => p.ProductCategory).IsRequired(false);
+                .IsRequired(false);
 
-
-            // Adress to Product relationship
-            modelBuilder.Entity<Adress>()
-                .HasOne(a => a.Product)
-                .WithMany()
-                .HasForeignKey(a => a.ProductBarcode)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // Adress to Shelf relationship
-            modelBuilder.Entity<Adress>()
+            // Address-Shelf relationship
+            modelBuilder.Entity<Address>()
                 .HasOne(a => a.Shelf)
-                .WithMany(s => s.Adresses)
-                .HasForeignKey(a => a.ShelfId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .WithMany(s => s.Addresses) // Assuming Shelf doesn't have navigation property for Addresses
+                .HasForeignKey(a => a.ShelfFId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired(true);
+            modelBuilder.Entity<Address>()
+                .Property(a => a.AddressId) // specifying the property
+                .ValueGeneratedOnAdd(); // indicating it's auto-generated
+
+            // ProductAddresing-Product relationship
+            modelBuilder.Entity<ProductAddresing>()
+                .HasOne(pa => pa.Product)
+                .WithMany() // Assuming Product doesn't have a collection navigation property for ProductAddresing
+                .HasForeignKey(pa => pa.ProductFId)
+                .IsRequired(true);
+
+            // ProductAddresing-Address relationship
+            modelBuilder.Entity<ProductAddresing>()
+                .HasOne(pa => pa.Address)
+                .WithMany() // Assuming Address doesn't have a collection navigation property for ProductAddresing
+                .HasForeignKey(pa => pa.AddressFId)
+                .IsRequired(true);
+
+            modelBuilder.Entity<ProductAddresing>()
+                .Property(pa => pa.ProductAddresingId) // specifying the property
+                .ValueGeneratedOnAdd(); // indicating it's auto-generated
+
+            // ProductShelfDedication-Shelf relationship
+            modelBuilder.Entity<ProductShelfDedication>()
+                .HasOne(psd => psd.Shelf)
+                .WithMany() // Assuming Shelf doesn't have a collection navigation property for ProductShelfDedication
+                .HasForeignKey(psd => psd.ShelfFId)
+                .IsRequired(true);
+
+            // ProductShelfDedication-Brand relationship
+            modelBuilder.Entity<ProductShelfDedication>()
+                .HasOne(psd => psd.Brand)
+                .WithMany() // Using the existing collection of products, adjust if there's a different property
+                .HasForeignKey(psd => psd.BrandFId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .IsRequired(false);
+
+            // ProductShelfDedication-ProductCategory relationship
+            modelBuilder.Entity<ProductShelfDedication>()
+                .HasOne(psd => psd.ProductCategory)
+                .WithMany() // Using the existing collection of products, adjust if there's a different property
+                .HasForeignKey(psd => psd.ProductCategoryFId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .IsRequired(false);
+            modelBuilder.Entity<ProductShelfDedication>()
+                .Property(psd => psd.ProductShelfDedicationId) // specifying the property
+                .ValueGeneratedOnAdd(); // indicating it's auto-generated
+
         }
     }
 }

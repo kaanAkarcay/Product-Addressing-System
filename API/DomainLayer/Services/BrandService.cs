@@ -10,9 +10,9 @@ namespace DomainLayer.Services
 		{
 		}
 
-        public async Task<Brand> FindBrandByIdAsync(int id)
+        public async Task<Brand> FindBrandByNameAsync(string name)
         {
-            return await _uow.BrandRepository.FindByIdAsync(id);
+            return await _uow.BrandRepository.FindByNameAsync(name);
         }
 
         public async Task<List<Brand>> FindBrandsAsync()
@@ -27,7 +27,7 @@ namespace DomainLayer.Services
 
             JObject jsonObject = new JObject
             {
-                ["BrandId"] = brand.BrandId,
+              
                 ["BrandName"] = brand.BrandName
             };
 
@@ -45,7 +45,7 @@ namespace DomainLayer.Services
             {
                 var jsonObject = new JObject
                 {
-                    ["BrandId"] = brand.BrandId,
+  
                     ["BrandName"] = brand.BrandName
                 };
                 brandDtoJsons.Add(jsonObject.ToString());
@@ -60,15 +60,15 @@ namespace DomainLayer.Services
             JObject jsonObject = JObject.Parse(brandDtoJson);
             Brand? brand = null;
 
-			int brandId = jsonObject.GetValue("BrandId").Value<int>();
+
             string brandName = jsonObject.GetValue("BrandName").Value<string>();
 
-			if (brandId == null || string.IsNullOrEmpty(brandName))
+			if ( string.IsNullOrEmpty(brandName))
 				return null;
 
 			return new Brand
 			{
-				BrandId = brandId,
+	
 				BrandName = brandName
 			};
         }

@@ -11,9 +11,9 @@ namespace DomainLayer.Services
 		}
 
 
-        public async Task<ProductCategory> FindProductCategoryByIdAsync(int id)
+        public async Task<ProductCategory> FindProductCategoryByNameAsync(string name)
         {
-            return await _uow.ProductCategoryRepository.FindByIdAsync(id);
+            return await _uow.ProductCategoryRepository.FindByNameAsync(name);
         }
 
         public async Task<List<ProductCategory>> FindProductCategoriesAsync()
@@ -30,7 +30,7 @@ namespace DomainLayer.Services
 
             JObject jsonObject = new JObject
             {
-                ["ProductCategoryId"] = productCategory.ProductCategoryId,
+                
                 ["ProductsCategoryName"] = productCategory.ProductsCategoryName
             };
 
@@ -49,7 +49,7 @@ namespace DomainLayer.Services
             {
                 var jsonObject = new JObject
                 {
-                    ["ProductCategoryId"] = productCategory.ProductCategoryId,
+                   
                     ["ProductsCategoryName"] = productCategory.ProductsCategoryName
                 };
                 productCategoryDtoJsons.Add(jsonObject.ToString());
@@ -63,15 +63,15 @@ namespace DomainLayer.Services
         {
             JObject jsonObject = JObject.Parse(productCategoryDtoJson);
 
-            int productCategoryId = jsonObject.GetValue("ProductCategoryId").Value<int>();
+
             string productsCategoryName = jsonObject.GetValue("ProductsCategoryName").Value<string>();
 
-            if (productCategoryId <= 0 || string.IsNullOrEmpty(productsCategoryName))
+            if ( string.IsNullOrEmpty(productsCategoryName))
                 return null;
 
             return new ProductCategory
             {
-                ProductCategoryId = productCategoryId,
+
                 ProductsCategoryName = productsCategoryName
             };
         }

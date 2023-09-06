@@ -12,18 +12,20 @@ namespace Infrastructure.Repositories
         {
 		}
 
-        public async Task<bool> CreateShelvesWithAdressesAsync(Shelf shelf)
-        {
-            if(Create(shelf))
-            {
-                //create matrice adresses for each face auto assign address barcodes
-            }
-        }
+      
+
+        //public async Task<bool> CreateShelvesWithAdressesAsync(Shelf shelf)
+        //{
+        //    if(Create(shelf))
+        //    {
+        //        //create matrice adresses for each face auto assign address barcodes
+        //    }
+        //}
 
 
-        public async Task<Shelf> FindByShelfIdAsync(string shelfId)
+        public async Task<Shelf> FindByShelfByNameAsync(string shelfName)
         {
-            return await _dbContext.Set<Shelf>().SingleOrDefaultAsync(x => x.ShelfId == shelfId);
+            return await _dbContext.Set<Shelf>().SingleOrDefaultAsync(x => x.ShelfName == shelfName);
         }
     }
 }

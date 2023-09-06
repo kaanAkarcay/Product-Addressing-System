@@ -8,7 +8,7 @@ namespace DomainLayer.Models
 	public class Product: Entity
 	{
         [Key]
-        public long Barcode { get; set; }
+        public required long Barcode { get; set; }
         public required string ProductName { get; set; }
         public required string Sex { get; set; }
         // Foreign key
@@ -16,9 +16,7 @@ namespace DomainLayer.Models
         public int? ProductCategoryFId { get; set; }
 
         // Navigation property
-        [ForeignKey("BrandId")]
         public virtual Brand? Brand { get; set; }
-        [ForeignKey("ProductCategoryId")]
         public virtual ProductCategory? ProductCategory { get; set; }
 
     }

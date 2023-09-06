@@ -28,9 +28,9 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<string>>> getBrand(int id)
+        public async Task<ActionResult<IEnumerable<string>>> getBrand(string name)
         {
-            var brand = await _brandService.FindBrandByIdAsync(id);
+            var brand = await _brandService.FindBrandByNameAsync(name);
             if (brand == null)
             {
                 ModelState.AddModelError("", "brand is not exists!!");
@@ -59,9 +59,9 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<string>>> deleteBrand(int id)
+        public async Task<ActionResult<IEnumerable<string>>> deleteBrand(string name)
         {
-            var brand = await _brandService.FindBrandByIdAsync(id);
+            var brand = await _brandService.FindBrandByNameAsync(name);
             if (brand == null)
             {
                 ModelState.AddModelError("", "brand is not exists!!");
@@ -84,7 +84,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<IEnumerable<string>>> updateBrand(BrandDTO newBrand)
         {
-            var brand = await _brandService.FindBrandByIdAsync(newBrand.BrandId);
+            var brand = await _brandService.FindBrandByNameAsync(newBrand.BrandName);
             if (brand == null)
             {
                 ModelState.AddModelError("", "brand is not exists!!");

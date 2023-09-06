@@ -27,9 +27,9 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<string>>> getProductCategory(int id)
+        public async Task<ActionResult<IEnumerable<string>>> getProductCategory(string name)
         {
-            var productCategory = await _productCategoryService.FindProductCategoryByIdAsync(id);
+            var productCategory = await _productCategoryService.FindProductCategoryByNameAsync(name);
             if (productCategory == null)
             {
                 ModelState.AddModelError("", "Product Category is not exists!!");
@@ -58,9 +58,9 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<string>>> deleteProductCategory(int id)
+        public async Task<ActionResult<IEnumerable<string>>> deleteProductCategory(string name)
         {
-            var productCategory = await _productCategoryService.FindProductCategoryByIdAsync(id);
+            var productCategory = await _productCategoryService.FindProductCategoryByNameAsync(name);
             if (productCategory == null)
             {
                 ModelState.AddModelError("", "Product Category is not exists!!");
@@ -83,7 +83,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<IEnumerable<string>>> updateProductCategory(ProductCategoryDTO newProductCategory)
         {
-            var productCategory = await _productCategoryService.FindProductCategoryByIdAsync(newProductCategory.ProductCategoryId);
+            var productCategory = await _productCategoryService.FindProductCategoryByNameAsync(newProductCategory.ProductsCategoryName);
             if (productCategory == null)
             {
                 ModelState.AddModelError("", "Product Category is not exists!!");

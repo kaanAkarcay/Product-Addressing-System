@@ -10,9 +10,47 @@ namespace DomainLayer.Services
 		{
 		}
 
-        public async Task<Shelf> GetShelfAsync(string shelfId)
+        public async Task<Shelf> GetShelfByNameAsync(string shelfName)
         {
-            return await _uow.ShelfRepository.FindByShelfIdAsync(shelfId);
+            return await _uow.ShelfRepository.FindByShelfByNameAsync(shelfName);
+        }
+
+        public async Task<bool> CreateShelfWithAdresses(Shelf shelf)
+        {
+            if (_uow.ShelfRepository.Create(shelf))
+            {
+                await _uow.SaveChangesAsync();//since we are not calling from generic service!
+                var createdShelf= await _uow.ShelfRepository.FindByShelfByNameAsync(shelf.ShelfName);
+
+
+                for (int f = 1; f <= shelf.Face; f++)
+                {
+
+
+                    for (int r = 1; r <= shelf.Row; r++)
+                    {
+                        for (int c = 1; c <= shelf.Column; c++)
+                        {
+                            _uow.AddressRepository.Create( new Address {
+                                AdressBarcode = $"{createdShelf.ShelfName}-{f:D2}-{r:D2}-{c:D2}",
+                                Face= f,
+                                Row = r,
+                                Column= c,
+                                ShelfFId = createdShelf.ShelfId,
+                                Shelf = createdShelf
+
+
+
+                        });
+
+                        }
+
+                    }
+                }
+                await _uow.SaveChangesAsync();//since we are not calling from generic service!
+                return true;
+            }
+            return false;
         }
 
         // Map single Shelf entity to DTO in JSON format
@@ -23,7 +61,11 @@ namespace DomainLayer.Services
 
             JObject jsonObject = new JObject
             {
-                ["ShelfId"] = shelf.ShelfId
+                
+                ["ShelfName"] = shelf.ShelfName,
+                ["Face"] = shelf.Face,
+                ["Row"] = shelf.Row,
+                ["Column"] = shelf.Column
             };
 
             return jsonObject.ToString();
@@ -41,7 +83,11 @@ namespace DomainLayer.Services
             {
                 var jsonObject = new JObject
                 {
-                    ["ShelfId"] = shelf.ShelfId
+                    
+                    ["ShelfName"] = shelf.ShelfName,
+                    ["Face"] = shelf.Face,
+                    ["Row"] = shelf.Row,
+                    ["Column"] = shelf.Column
                 };
                 shelfDtoJsons.Add(jsonObject.ToString());
             }
@@ -54,16 +100,29 @@ namespace DomainLayer.Services
         {
             JObject jsonObject = JObject.Parse(shelfDtoJson);
 
-            string shelfId = jsonObject.GetValue("ShelfId").Value<string>();
+           
+            string shelfName = jsonObject.GetValue("ShelfName").Value<string>();
+            int face = jsonObject.GetValue("Face").Value<int>();
+            int row = jsonObject.GetValue("Row").Value<int>();
+            int column = jsonObject.GetValue("Column").Value<int>();
+            
 
-            if (string.IsNullOrEmpty(shelfId))
+
+            if (string.IsNullOrEmpty(shelfName))
                 return null;
 
             return new Shelf
             {
-                ShelfId = shelfId
+               
+                ShelfName = shelfName,
+                Face = face,
+                Row = row,
+                Column = column,
+                Addresses = new List<Address>()
             };
         }
+
+
 
     }
 }

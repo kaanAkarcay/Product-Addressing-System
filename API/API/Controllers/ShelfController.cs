@@ -24,9 +24,9 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<string>>> getShelf(string shelfId)
+        public async Task<ActionResult<IEnumerable<string>>> getShelf(string shelfName)
         {
-            var shelf = await _shelfService.GetShelfAsync(shelfId);
+            var shelf = await _shelfService.GetShelfByNameAsync(shelfName);
             if (shelf == null)
             {
                 ModelState.AddModelError("", "shelf is not exists!!");
@@ -40,9 +40,9 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<string>>> deleteShelf(string shelfId)
+        public async Task<ActionResult<IEnumerable<string>>> deleteShelf(string shelfName)
         {
-            var shelf = await _shelfService.GetShelfAsync(shelfId);
+            var shelf = await _shelfService.GetShelfByNameAsync(shelfName);
             if (shelf == null)
             {
                 ModelState.AddModelError("", "shelf is not exists!!");
@@ -66,14 +66,18 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<IEnumerable<string>>> updateShelf(ShelfDTO newShelf)
         {
-            var shelf = await _shelfService.GetShelfAsync(newShelf.ShelfId);
+            var shelf = await _shelfService.GetShelfByNameAsync(newShelf.ShelfName);
             if (shelf == null)
             {
                 ModelState.AddModelError("", "Shelf is not exists!!");
                 return BadRequest(ModelState);
             }
 
-            shelf.ShelfId = newShelf.ShelfId;
+           
+            shelf.ShelfName = newShelf.ShelfName;
+            shelf.Face = newShelf.Face;
+            shelf.Row = newShelf.Row;
+            shelf.Column = newShelf.Column;
             if (await _shelfService.UpdateAsync(shelf))
             {
                 return Ok(_shelfService.MapShelfEntityToDtoJson(shelf));
@@ -103,8 +107,8 @@ namespace API.Controllers
                 ModelState.AddModelError("", "ivalid input!!");
                 return BadRequest(ModelState);
             }
-
-            if (await _shelfService.CreateAsync(MShelf))
+            //await _shelfService.CreateAsync(MShelf)
+            if (await _shelfService.CreateShelfWithAdresses(MShelf))
                 return Ok(MShelf);
             else
             {

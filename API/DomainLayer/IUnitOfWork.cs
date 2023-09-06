@@ -5,11 +5,13 @@ namespace DomainLayer
 {
     public interface IUnitOfWork : IDisposable
 	{
-		IAdressRepository AdressRepository { get; }
+		IAddressRepository AddressRepository { get; }
 		IBrandRepository BrandRepository { get; }
 		IProductRepository ProductRepository { get; }
 		IProductCategoryRepository ProductCategoryRepository { get; }
 		IShelfRepository ShelfRepository { get; }
+		IProductAddressingRepository ProductAddressingRepository { get; }
+		IProductShelfDedicationRepository ProductShelfDedicationRepository { get; }
 		IRepository<Entity> Repository { get; }
 
 
