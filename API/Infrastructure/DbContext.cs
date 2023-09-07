@@ -104,8 +104,8 @@ namespace Infrastructure
                 .HasOne(psd => psd.Brand)
                 .WithMany() // Using the existing collection of products, adjust if there's a different property
                 .HasForeignKey(psd => psd.BrandFId)
-                .OnDelete(DeleteBehavior.SetNull)
-                .IsRequired(false);
+                //.OnDelete(DeleteBehavior.SetNull)//?????
+                .IsRequired(true);
 
             // ProductShelfDedication-ProductCategory relationship
             modelBuilder.Entity<ProductShelfDedication>()

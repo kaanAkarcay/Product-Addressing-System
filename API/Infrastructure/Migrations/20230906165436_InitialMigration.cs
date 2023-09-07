@@ -126,11 +126,13 @@ namespace Infrastructure.Migrations
                 {
                     ProductShelfDedicationId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Sex = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Face = table.Column<int>(type: "int", nullable: true),
                     Row = table.Column<int>(type: "int", nullable: true),
                     Column = table.Column<int>(type: "int", nullable: true),
                     ShelfFId = table.Column<int>(type: "int", nullable: false),
-                    BrandFId = table.Column<int>(type: "int", nullable: true),
+                    BrandFId = table.Column<int>(type: "int", nullable: false),
                     ProductCategoryFId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -141,7 +143,7 @@ namespace Infrastructure.Migrations
                         column: x => x.BrandFId,
                         principalTable: "brands",
                         principalColumn: "BrandId",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_productShelfDedications_productCategories_ProductCategoryFId",
                         column: x => x.ProductCategoryFId,

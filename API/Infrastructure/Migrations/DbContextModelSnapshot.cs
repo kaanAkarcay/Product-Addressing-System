@@ -160,7 +160,7 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("BrandFId")
+                    b.Property<int>("BrandFId")
                         .HasColumnType("int");
 
                     b.Property<int?>("Column")
@@ -174,6 +174,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<int?>("Row")
                         .HasColumnType("int");
+
+                    b.Property<string>("Sex")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("ShelfFId")
                         .HasColumnType("int");
@@ -265,7 +268,8 @@ namespace Infrastructure.Migrations
                     b.HasOne("DomainLayer.Models.Brand", "Brand")
                         .WithMany()
                         .HasForeignKey("BrandFId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DomainLayer.Models.ProductCategory", "ProductCategory")
                         .WithMany()

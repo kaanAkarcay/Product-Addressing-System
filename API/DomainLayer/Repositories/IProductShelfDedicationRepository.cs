@@ -6,7 +6,7 @@ namespace DomainLayer.Repositories
 	public interface IProductShelfDedicationRepository: IRepository<ProductShelfDedication>
 	{
 
-		Task<string> LookUpForDedication(Product product);
+		Task<ProductShelfDedication> LookUpForDedication(Product product);
 
 	}
 }

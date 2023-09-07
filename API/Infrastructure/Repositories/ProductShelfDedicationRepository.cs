@@ -12,9 +12,38 @@ namespace Infrastructure.Repositories
 		{
 		}
 
-        public Task<string> LookUpForDedication(Product product)
+        public async Task<ProductShelfDedication> LookUpForDedication(Product product)
         {
-            throw new NotImplementedException();
+            var result = await _dbContext.productShelfDedications.FirstOrDefaultAsync(
+                pad => pad.BrandFId == product.BrandFId &&
+                pad.Sex == product.Sex &&
+                pad.ProductCategoryFId == product.ProductCategoryFId
+                );
+            if (result==null)
+            {
+                result = await _dbContext.productShelfDedications.FirstOrDefaultAsync(
+                pad => pad.BrandFId == product.BrandFId &&
+                pad.Sex == product.Sex &&
+                pad.ProductCategoryFId == null
+                );
+                if (result == null)
+                {
+                   result = await _dbContext.productShelfDedications.FirstOrDefaultAsync(
+                   pad => pad.BrandFId == product.BrandFId &&
+                    (string.IsNullOrEmpty(pad.Sex) || pad.Sex == null) &&
+                   pad.ProductCategoryFId == null
+
+                   );
+                    if (result == null)
+                    {
+                        return null;//not found
+                    }
+                    return result;
+                }
+                return result;
+
+            }
+            return result;
         }
     }
 }

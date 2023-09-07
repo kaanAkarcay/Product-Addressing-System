@@ -16,10 +16,12 @@ namespace API.Controllers
     public class ProductAdressingController: ControllerBase
 	{
 		private readonly ProductAddressingService _productAddressingService;
+        private readonly ProductShelfDedicationService _productShelfDedicationService;
         private readonly ProductService _productService;
         private readonly AddressService _addressService;
-        public ProductAdressingController(ProductAddressingService productAddressingService, ProductService productService, AddressService addressService)
+        public ProductAdressingController(ProductAddressingService productAddressingService, ProductService productService, AddressService addressService, ProductShelfDedicationService productShelfDedicationService)
 		{
+            _productShelfDedicationService = productShelfDedicationService;
             _addressService = addressService;
             _productService = productService;
 			_productAddressingService = productAddressingService;
@@ -29,26 +31,29 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<string>>> getRequest(ProductDTO product)
+        public async Task<ActionResult<IEnumerable<string>>> getRequest(long barcode)
         {
+            var product = await _productService.FindProductAsync(barcode);
             if (product == null)
             {
                 return BadRequest(product);
             }
-            string productDtoJson = JsonConvert.SerializeObject(product);
-            var Mproduct = await _productService.MapProductDtoToEntityAsync(productDtoJson);
-            var result = _productAddressingService.getRequestForProduct(Mproduct);
+            //string productDtoJson = JsonConvert.SerializeObject(product);
+            //var Mproduct = await _productService.MapProductDtoToEntityAsync(productDtoJson);
+            var result = await _productShelfDedicationService.LookForRequestAsync(product);
+            return Ok(result);
+            //var result = _productAddressingService.getRequestForProduct(Mproduct);
 
-            if (string.IsNullOrEmpty(result))
-            {
-                ModelState.AddModelError("", "Non-Pre Defined suggestions");
-                return BadRequest(ModelState);
-            }
+            //if (string.IsNullOrEmpty(result))
+            //{
+            //    ModelState.AddModelError("", "Non-Pre Defined suggestions");
+            //    return BadRequest(ModelState);
+            //}
 
-            else
-            {
-                return Ok(result);
-            }
+            //else
+            //{
+            //    return Ok(result);
+            //}
 
         }
 

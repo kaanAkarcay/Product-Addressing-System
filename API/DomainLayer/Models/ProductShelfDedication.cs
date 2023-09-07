@@ -8,6 +8,7 @@ namespace DomainLayer.Models
 	{
 		[Key]
 		public int ProductShelfDedicationId { get; set; }
+		public string? Sex { get; set; }
 		public int? Face { get; set; }
 		public int? Row { get; set; }
 		public int? Column { get; set; }
@@ -16,11 +17,11 @@ namespace DomainLayer.Models
 
 		//FId
 		public required int ShelfFId { get; set; }
-		public int? BrandFId { get; set; }
+		public required int BrandFId { get; set; }
 		public int? ProductCategoryFId { get; set; }
 		//nav
 		public required Shelf Shelf { get; set; }
-		public Brand? Brand { get; set; }
+		public required Brand Brand { get; set; }
 		public ProductCategory? ProductCategory { get; set; }
 
 	}

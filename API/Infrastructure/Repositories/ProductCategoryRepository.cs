@@ -14,7 +14,7 @@ namespace Infrastructure.Repositories
 
         public async Task<ProductCategory> FindByNameAsync(string name)
         {
-            return await _dbContext.productCategories.FirstAsync(p => p.ProductsCategoryName == name);
+            return await _dbContext.productCategories.SingleOrDefaultAsync(p => p.ProductsCategoryName == name);
         }
     }
 }
