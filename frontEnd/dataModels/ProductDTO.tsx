@@ -1,9 +1,9 @@
 interface ProductDTO {
     Barcode: string;
-    Product_Name: string;
+    ProductName: string;
     Sex: string;
-    Brand_ID: string;
-    Product_Category_ID: string;
+    Brand: string;
+    ProductCategory: string;
   }
   
   export default ProductDTO;

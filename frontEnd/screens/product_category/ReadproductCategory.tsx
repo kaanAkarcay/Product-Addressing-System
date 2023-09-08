@@ -1,44 +1,58 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
-import Product_CategoryDTO from '../../dataModels/ProductCategoryDTO';
+import ProductCategoryDTO from '../../dataModels/ProductCategoryDTO';
 import { Styles } from '../../component/Styles';
+import communicator from '../../component/communicator'; // Import your API communicator
+import { useDataStore } from '../../component/DataHandler';
 
 const ReadProductCategory: React.FC = () => {
     const [searchKey, setSearchKey] = useState('');
-    const [foundProductCategory, setFoundProductCategory] = useState<Product_CategoryDTO | null>(null);
-   
+    const {productCategory, setProductCategory} = useDataStore();
+    const [productCategoryFound, setProductCategoryFound] = useState<boolean>(false);
+
+    const reset : ProductCategoryDTO = {
+        ProductsCategoryName : ''
+    }
+
     const handleSearchProductCategory = async () => {
-        // Simulate fetching data from API
-        console.log("fetching bro");
-        const fetchedProductCategory: Product_CategoryDTO = {
-            Product_Category_Name:'nike'
-        };
-         // Simulate searching for a product by name
-         if (fetchedProductCategory.Product_Category_Name.toLowerCase() === searchKey.toLowerCase()) {
-            setFoundProductCategory(fetchedProductCategory);
+        try {
+            // Make an API call to search for a product category by name
+            const response = await communicator.get(`/ProductCategory/getProductCategory?name=${searchKey}`);
             
-        } else {
-            setFoundProductCategory(null);
+            // Check if the API call was successful and found a product category
+            if (response.status === 200 && response.data) {
+                setProductCategory(response.data);
+                setProductCategoryFound(true);
+            } else {
+                setProductCategory(reset);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            setProductCategory(reset);
         }
     };
-        return (
-            <View style={Styles.container}>
-                <Text style={Styles.heading}>Product Category Search</Text>
-                <TextInput
-                    style={Styles.input}
-                    placeholder="Enter Product Category Name"
-                    onChangeText={setSearchKey}
-                    value={searchKey}
-                />
-                <Button title="Search Product Category" onPress={handleSearchProductCategory} />
-                {foundProductCategory && (
-                    <View style={Styles.productDetails}>
-                         <Text>Yes that Product Category exists.</Text>
-                        <Text>Name: {foundProductCategory.Product_Category_Name}</Text>  
-                    </View>
-                )}
-            </View>
-        );
 
-                }
+    return (
+        <View style={Styles.container}>
+            <Text style={Styles.heading}>Product Category Search</Text>
+            <TextInput
+                style={Styles.input}
+                placeholder="Enter Product Category Name"
+                onChangeText={setSearchKey}
+                value={searchKey}
+            />
+            <Button title="Search Product Category" onPress={handleSearchProductCategory} />
+            {productCategoryFound && (
+                <View style={Styles.productDetails}>
+                    <Text>Yes, that Product Category exists.</Text>
+                    <Text>Name: {productCategory.ProductsCategoryName}</Text>
+                    {/* Render other product category details here */}
+                    <Button title="Ok"  onPress={() => setProductCategoryFound(false)} />
+
+                </View>
+            )}
+        </View>
+    );
+};
+
 export default ReadProductCategory;

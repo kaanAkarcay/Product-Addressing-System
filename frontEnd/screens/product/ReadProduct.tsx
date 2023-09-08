@@ -2,57 +2,45 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import { Styles } from '../../component/Styles';
 import ProductDTO from '../../dataModels/ProductDTO';
+import communicator from '../../component/communicator';
+import { useDataStore } from '../../component/DataHandler';
 
 const ReadProduct: React.FC = () => {
     const [searchKey, setSearchKey] = useState('');
-    const [foundProduct, setFoundProduct] = useState<ProductDTO | null>(null);
-    const [foundBrand, setFoundBrand] = useState<string | null>(null);
-    const [foundCategory, setFoundCategory] = useState<string | null>(null);
+    const {product, setProduct} = useDataStore();
+    const [productFound, setProductFound] = useState<boolean>(false);
 
     const handleSearchProduct = async () => {
-        // Simulate fetching data from API
-        console.log("fetching bro");
-        const fetchedProduct: ProductDTO = {
-            Barcode: '1234567890123',
-            Product_Name: 'Sample Product',
-            Sex: 'Unisex',
-            Brand_ID: '1',
-            Product_Category_ID: '2',
-        };
+        try {
+            // Simulate fetching data from API based on the product name
+            const response = await communicator.get(`/Product/getProduct?barcode=${searchKey}`);
+            setProduct(response.data);
+            setProductFound(true);
 
-        // Simulate fetching brand and category based on IDs
-        const fetchedBrand = 'Sample Brand';
-        const fetchedCategory = 'Sample Category';
-
-        // Simulate searching for a product by name
-        if (fetchedProduct.Product_Name.toLowerCase() === searchKey.toLowerCase()) {
-            setFoundProduct(fetchedProduct);
-            setFoundBrand(fetchedBrand);
-            setFoundCategory(fetchedCategory);
-        } else {
-            setFoundProduct(null);
-            setFoundBrand(null);
-            setFoundCategory(null);
+        } catch (error) {
+            console.error('Error:', error);
         }
     };
-
+    
     return (
         <View style={Styles.container}>
             <Text style={Styles.heading}>Product Search</Text>
             <TextInput
                 style={Styles.input}
-                placeholder="Enter Product Name"
+                placeholder="Enter Product barcode"
+                keyboardType="numeric"
                 onChangeText={setSearchKey}
                 value={searchKey}
             />
             <Button title="Search Product" onPress={handleSearchProduct} />
-            {foundProduct && (
+            {productFound && (
                 <View style={Styles.productDetails}>
-                    <Text>Barcode: {foundProduct.Barcode}</Text>
-                    <Text>Name: {foundProduct.Product_Name}</Text>
-                    <Text>Sex: {foundProduct.Sex}</Text>
-                    {foundBrand && <Text>Brand: {foundBrand}</Text>}
-                    {foundCategory && <Text>Category: {foundCategory}</Text>}
+                    <Text>Barcode: {product.Barcode}</Text>
+                    <Text>Name: {product.ProductName}</Text>
+                    <Text>Sex: {product.Sex}</Text>
+                    {product && <Text>Brand: {product.Brand}</Text>}
+                    {product && <Text>Category: {product.ProductCategory}</Text>}
+                    <Button title="Ok"  onPress={() => setProductFound(false)} />
                 </View>
             )}
         </View>

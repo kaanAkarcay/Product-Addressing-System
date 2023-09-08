@@ -14,7 +14,7 @@ namespace API.Models
 
         //Foreign keys
         public long? ProductBarcode { get; set; }
-        public string? ShelfId { get; set; }
+        public int? ShelfName { get; set; }
 
     }
 }

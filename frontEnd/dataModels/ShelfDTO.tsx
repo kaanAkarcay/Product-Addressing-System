@@ -1,5 +1,9 @@
 interface ShelfDTO {
-    Shelf_ID: string;
+  ShelfName: string;
+  Row: number;
+  Column: number;
+  Face: number;
+
   }
   
   export default ShelfDTO;

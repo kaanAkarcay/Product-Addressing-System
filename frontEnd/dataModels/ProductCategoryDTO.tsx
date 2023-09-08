@@ -1,6 +1,6 @@
-interface Product_CategoryDTO {
-    Product_Category_Name: string;
+interface ProductCategoryDTO {
+  ProductsCategoryName: string;
   }
   
-  export default Product_CategoryDTO;
+  export default ProductCategoryDTO;
   

@@ -1,74 +1,61 @@
-import React from 'react';
 import create from 'zustand';
 import ProductDTO from '../dataModels/ProductDTO';
-import { communicator } from './communicator';
+import BrandDTO from '../dataModels/BrandDTO';
+import ProductCategoryDTO from '../dataModels/ProductCategoryDTO';
+import ShelfDTO from '../dataModels/ShelfDTO';
 
-type DataHandlerState = {
-    products: ProductDTO[];
-    foundProduct: ProductDTO | null;
-  };
-  
-  type DataHandlerActions = {
-    setProducts: (products: ProductDTO[]) => void;
-    setFoundProduct: (product: ProductDTO | null) => void;
-    getProduct: (productId: number) => Promise<void>; // Added this
-    createProduct: (product: ProductDTO) => Promise<void>; // And this
-  };
-  type DataHandlerProps = {
-    children: (dataHandler: DataHandler) => React.ReactNode;
-  };
-  
-
-  type DataHandler = DataHandlerState & DataHandlerActions;
-const useDataHandler = create<DataHandler>((set) => ({
-  products: [],
-  foundProduct: null,
-  setProducts: (products: any) => set({ products }),
-  setFoundProduct: (product: any) => set({ foundProduct: product }),
-   
-  // Placeholder implementations for the methods
-  getProduct: async (productId: number) => {
-    // Logic for getting a product
-  },
-  createProduct: async (product: ProductDTO) => {
-    // Logic for creating a product
-  },
-  // ... Add placeholder implementations for other methods like `updateProduct`, `deleteProduct`, etc.
-}));
-
-const DataHandler: React.FC<DataHandlerProps> = ({ children }) => {
-  const { setProducts, setFoundProduct } = useDataHandler();
-
-  const getProduct = async (productId: number) => {
-    const response = await communicator.get<ProductDTO>(`/products/${productId}`);
-    setFoundProduct(response.data);
-  };
-
-  const createProduct = async (product: ProductDTO) => {
-    const response = await communicator.post<ProductDTO>('/products', product);
-    // Handle post response, if needed
-  };
-
-  // Implement other CRUD operations...
-
-  const dataHandler: DataHandler = {
-    products: useDataHandler.getState().products,
-    foundProduct: useDataHandler.getState().foundProduct,
-    setProducts,
-    setFoundProduct,
-    getProduct,
-    createProduct,
-    // ... other methods
-  };
-
-  return <>{children(dataHandler)}</>;
+// Define the shape of your data store
+type DataStore = {
+  products: ProductDTO[]; // Example data: an array of products
+  product:ProductDTO;
+  productFound:Boolean;
+  productCategory: ProductCategoryDTO;
+  productCategoryFound:Boolean;
+  brand:BrandDTO;
+  brandFound:Boolean;
+  shelf:ShelfDTO;
+  shelfFound:Boolean;
+  setShelf:(shelf: ShelfDTO) => void;
+  setProductCategory:(ProductCategory: ProductCategoryDTO) => void;
+  setBrand:(brand: BrandDTO) => void;
+  setProduct:(product: ProductDTO) => void;
+  setProducts: (products: ProductDTO[]) => void;
 };
 
-export default DataHandler;
+// Create your Zustand store
+export const useDataStore = create<DataStore>((set) => ({
+  products: [], // Initialize with an empty array
+  product: {
+    Barcode:'',
+    ProductName: '',
+    Sex: '',
+    Brand: '',
+    ProductCategory: ''
+  },
+  brand: {
+    BrandName : '',
+  },
+  productCategory:{
+    ProductsCategoryName: ''
+  },
+  shelf:{
+    ShelfName: '',
+    Row: 0,
+    Column: 0,
+    Face: 0
+  },
+  productFound: false,
+  productCategoryFound: false,
+  shelfFound: false,
+  brandFound: false,
+  setProductFound: (productFound:boolean) => set({productFound}),
+  setProductCategoryFound: (productCategoryFound:boolean) => set({productCategoryFound}),
+  setShelfFound: (shelfFound:boolean) => set({shelfFound}),
+  setBrandFound: (brandFound:boolean) => set({brandFound}),
+  setShelf:(shelf) => set ({shelf}),
+  setProductCategory:(productCategory) => set({productCategory}),
+  setBrand: (brand) => set({brand}),
+  setProduct: (product) => set({product}),
+  setProducts: (products) => set({ products }), // Function to set products in the store
 
-
-{/* <DataHandlerComponent>
-  {(dataHandler) => (
-     use dataHandler here 
-  )}
-</DataHandlerComponent> */}
+}));

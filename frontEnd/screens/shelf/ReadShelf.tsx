@@ -2,39 +2,54 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import ShelfDTO from '../../dataModels/ShelfDTO';
 import { Styles } from '../../component/Styles';
+import communicator from '../../component/communicator';
+import { useDataStore } from '../../component/DataHandler';
 
 const ReadShelf: React.FC = () => {
     const [searchKey, setSearchKey] = useState('');
-    const [foundShelf, setFoundShelf] = useState<ShelfDTO | null>(null);
+    const {shelf, setShelf} = useDataStore();
+    const [shelfFound, setShelfFound] = useState<boolean>(false);
+
+    const reset : ShelfDTO = {
+        ShelfName:'',
+        Face:0,
+        Row:0,
+        Column:0
+    }
    
     const handleSearchShelf = async () => {
         // Simulate fetching data from API
         console.log("fetching bro");
-        const fetchedShelf: ShelfDTO = {
-            Shelf_ID:'AA'
-        };
-         // Simulate searching for a product by name
-         if (fetchedShelf.Shelf_ID.toLowerCase() === searchKey.toLowerCase()) {
-            setFoundShelf(fetchedShelf);
-            
+        try{
+        const response = await communicator.get(`/Shelf/getShelf?shelfName=${searchKey}`);
+        // Check if the API call was successful and found a product category
+        if (response.status === 200 && response.data) {
+            setShelf(response.data);
+            setShelfFound(true);
         } else {
-            setFoundShelf(null);
+            setShelf(reset);
         }
+    } catch (error) {
+        console.error('Error:', error);
+        (reset);
+    }
     };
         return (
             <View style={Styles.container}>
                 <Text style={Styles.heading}>Shelf Search</Text>
                 <TextInput
                     style={Styles.input}
-                    placeholder="Enter Shelf ID"
+                    placeholder="Enter Shelf Name"
                     onChangeText={setSearchKey}
                     value={searchKey}
                 />
                 <Button title="Search Shelf" onPress={handleSearchShelf} />
-                {foundShelf && (
+                {shelfFound && (
                     <View style={Styles.productDetails}>
                          <Text>Yes that Shelf exists.</Text>
-                        <Text>Name: {foundShelf.Shelf_ID}</Text>  
+                        <Text>Name: {shelf.ShelfName}</Text>  
+                        <Button title="Ok"  onPress={() => setShelfFound(false)} />
+
                     </View>
                 )}
             </View>
