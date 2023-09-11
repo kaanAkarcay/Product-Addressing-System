@@ -1,8 +1,8 @@
 interface ProductInsertionWrapperDTO{
-    ProductBarcode:number;
+    ProductBarcode:string;
     Address:string;
     AddressedBy:string;
-    Quantity:number;
+    Quantity:string;
 }
 
 export default ProductInsertionWrapperDTO;

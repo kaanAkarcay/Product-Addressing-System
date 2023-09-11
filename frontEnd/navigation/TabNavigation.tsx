@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native'; // Import StyleSheet
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import InsertProduct from '../screens/InsertProduct';
+import RemoveProduct from '../screens/RemoveProduct';
 import CreateProduct from '../screens/product/CreateProduct';
 import UpdateProduct from '../screens/product/UpdateProduct';
 import ReadProduct from '../screens/product/ReadProduct';
@@ -29,6 +30,8 @@ export default function TabNavigation() {
       headerStyle: styles.header,
     }}>
       <Tab.Screen name="Add Product" component={InsertProduct} options={{ headerShown: false }} />
+      <Tab.Screen name="Remove Product" component={RemoveProduct} options={{ headerShown: false }} />
+
 
       <Tab.Screen name="Create Product" component={CreateProduct} options={{ headerShown: false, tabBarButton: () => null }} />
       <Tab.Screen name="Read Product" component={ReadProduct} options={{ headerShown: false, tabBarButton: () => null }} />

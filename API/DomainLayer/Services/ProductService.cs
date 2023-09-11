@@ -20,6 +20,10 @@ namespace DomainLayer.Services
             try
             {
                 var product = await _uow.ProductRepository.FindByBarcodeAsync(barcode);
+                if(product.BrandFId!=null)
+                    product.Brand = await _uow.BrandRepository.FindByIdAsync((int)product.BrandFId);
+                if (product.ProductCategoryFId != null)
+                    product.ProductCategory = await _uow.ProductCategoryRepository.FindByIdAsync((int)product.ProductCategoryFId);
                 return product; // This can be null if no product was found.
             }
             catch (Exception ex)

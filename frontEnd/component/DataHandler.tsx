@@ -15,6 +15,8 @@ type DataStore = {
   brandFound:Boolean;
   shelf:ShelfDTO;
   shelfFound:Boolean;
+  request:string;
+  setRequest:(request:string) => void;
   setShelf:(shelf: ShelfDTO) => void;
   setProductCategory:(ProductCategory: ProductCategoryDTO) => void;
   setBrand:(brand: BrandDTO) => void;
@@ -44,10 +46,12 @@ export const useDataStore = create<DataStore>((set) => ({
     Column: 0,
     Face: 0
   },
+  request:'',
   productFound: false,
   productCategoryFound: false,
   shelfFound: false,
   brandFound: false,
+  setRequest:(request:string) => set(({request})),
   setProductFound: (productFound:boolean) => set({productFound}),
   setProductCategoryFound: (productCategoryFound:boolean) => set({productCategoryFound}),
   setShelfFound: (shelfFound:boolean) => set({shelfFound}),

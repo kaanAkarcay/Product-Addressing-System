@@ -1,9 +1,9 @@
 interface ProductRemovalWrapperDTO{
 
-    ProductBarcode:number;
+    ProductBarcode:string;
     Address: string;
     PickedBy:string;
-    Quantity:number;
+    Quantity:string;
 
 }
 
