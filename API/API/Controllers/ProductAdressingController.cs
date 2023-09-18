@@ -19,9 +19,13 @@ namespace API.Controllers
         private readonly ProductShelfDedicationService _productShelfDedicationService;
         private readonly ProductService _productService;
         private readonly AddressService _addressService;
-        public ProductAdressingController(ProductAddressingService productAddressingService, ProductService productService, AddressService addressService, ProductShelfDedicationService productShelfDedicationService)
+        private readonly OrderService _orderService;
+        private readonly OrderItemService _orderItemService;
+        public ProductAdressingController(ProductAddressingService productAddressingService, ProductService productService, AddressService addressService, ProductShelfDedicationService productShelfDedicationService,OrderService orderService, OrderItemService orderItemService)
 		{
             _productShelfDedicationService = productShelfDedicationService;
+            _orderItemService = orderItemService;
+            _orderService = orderService;
             _addressService = addressService;
             _productService = productService;
 			_productAddressingService = productAddressingService;
@@ -64,6 +68,9 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<IEnumerable<string>>> removeProduct(ProductRemovalWrapperDTO input)
         {
+            var orders = await _orderService.FindOrdersAsync();
+            var filteredOrders = orders.Where(order => order.Status == 1 && order.OrderType == 1).ToList();
+
             var product = await _productService.FindProductAsync(input.ProductBarcode);
             if (product == null)
             {
@@ -87,13 +94,76 @@ namespace API.Controllers
                 }
                 else
                 {
-                    if(input.Quantity == existingAdress.Quantity)
+
+                   
+
+
+
+                    if (input.Quantity == existingAdress.Quantity)
                     {
                         existingAdress.IsDeleted = true;
                         existingAdress.PickedBy = input.PickedBy;
                         existingAdress.PickedTime = DateTime.UtcNow;
                         if (await _productAddressingService.UpdateAsync(existingAdress))
+                        {
+                            //--------------------------------------------------------------------------------
+                            foreach (var order in filteredOrders)
+                            {
+                                order.OrderItems = await _orderItemService.FindOrderItemByOrderId(order.OrderId);
+
+                                // Skip processing if OrderItems is null
+                                if (order.OrderItems == null && order.Status != 2)
+                                {
+                                    continue;
+                                }
+
+                                // Track the number of items processed
+                                int processedItems = 0;
+
+                                // Iterate through order items
+                                foreach (var orderItem in order.OrderItems)
+                                {
+                                    if (orderItem == null && order.Status != 2)
+                                    {
+                                        continue; // Skip this order item if it's null
+                                    }
+
+                                    if (orderItem.ProductBarcode == input.ProductBarcode && processedItems < input.Quantity)
+                                    {
+                                        // Match found, change order item status to 2 (finished)
+                                        orderItem.Status = 2;
+                                        orderItem.CompletionDate = DateTime.UtcNow;
+
+                                        if (!await _orderItemService.UpdateAsync(orderItem))
+                                        {
+                                            ModelState.AddModelError("", "Failed to finish item order!!");
+                                            return BadRequest(ModelState);
+                                        }
+
+                                        processedItems++;
+                                    }
+                                }
+
+                                // Check if all required order items in the order are finished (status 2)
+                                if (order.OrderItems.All(item => item.Status == 2))
+                                {
+                                    // If all required items are finished, change the status of the order to 2
+                                    order.Status = 2;
+                                    order.FinishedDate = DateTime.UtcNow;
+
+                                    if (!await _orderService.UpdateAsync(order))
+                                    {
+                                        ModelState.AddModelError("", "Failed to finish order!!");
+                                        return BadRequest(ModelState);
+                                    }
+                                }
+                            }
+
+                            //--------------------------------------------------------------------------------
                             return Ok(_productService.MapProductEntityToDtoJson(product));
+                        }
+
+                           
                         else
                         {
 
@@ -106,6 +176,60 @@ namespace API.Controllers
                     existingAdress.PickedTime = DateTime.UtcNow;
                     if (await _productAddressingService.UpdateAsync(existingAdress))
                     {
+                        //--------------------------------------------------------------------------------
+                        foreach (var order in filteredOrders)
+                        {
+                            order.OrderItems = await _orderItemService.FindOrderItemByOrderId(order.OrderId);
+
+                            // Skip processing if OrderItems is null
+                            if (order.OrderItems == null && order.Status != 2)
+                            {
+                                continue;
+                            }
+
+                            // Track the number of items processed
+                            int processedItems = 0;
+
+                            // Iterate through order items
+                            foreach (var orderItem in order.OrderItems)
+                            {
+                                if (orderItem == null && order.Status != 2)
+                                {
+                                    continue; // Skip this order item if it's null
+                                }
+
+                                if (orderItem.ProductBarcode == input.ProductBarcode && processedItems < input.Quantity)
+                                {
+                                    // Match found, change order item status to 2 (finished)
+                                    orderItem.Status = 2;
+                                    orderItem.CompletionDate = DateTime.UtcNow;
+
+                                    if (!await _orderItemService.UpdateAsync(orderItem))
+                                    {
+                                        ModelState.AddModelError("", "Failed to finish item order!!");
+                                        return BadRequest(ModelState);
+                                    }
+
+                                    processedItems++;
+                                }
+                            }
+
+                            // Check if all required order items in the order are finished (status 2)
+                            if (order.OrderItems.All(item => item.Status == 2))
+                            {
+                                // If all required items are finished, change the status of the order to 2
+                                order.Status = 2;
+                                order.FinishedDate = DateTime.UtcNow;
+
+                                if (!await _orderService.UpdateAsync(order))
+                                {
+                                    ModelState.AddModelError("", "Failed to finish order!!");
+                                    return BadRequest(ModelState);
+                                }
+                            }
+                        }
+
+                        //--------------------------------------------------------------------------------
                         var p = _productService.MapProductEntityToDtoJson(product);
                         return Ok(p);
                     }
@@ -132,6 +256,8 @@ namespace API.Controllers
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<string>>> insertProduct(ProductInsertionWrapperDTO input)
     {
+            var orders = await _orderService.FindOrdersAsync();
+            var filteredOrders = orders.Where(order => order.Status == 1 && order.OrderType == 0).ToList();
             var product = await _productService.FindProductAsync(input.ProductBarcode);
             if (product == null)
             {
@@ -151,6 +277,59 @@ namespace API.Controllers
                 existingAdress.Quantity += input.Quantity;
                 if(await _productAddressingService.UpdateAsync(existingAdress))
                 {
+                    //--------------------------------------------------------------------------------
+                    foreach (var order in filteredOrders)
+                    {
+                        order.OrderItems = await _orderItemService.FindOrderItemByOrderId(order.OrderId);
+                        // Skip processing if OrderItems is null
+                        if (order.OrderItems == null && order.Status!=2)
+                        {
+                            continue;
+                        }
+
+                        // Track the number of items processed
+                        int processedItems = 0;
+
+                        // Iterate through order items
+                        foreach (var orderItem in order.OrderItems)
+                        {
+                            if (orderItem == null && order.Status != 2)
+                            {
+                                continue; // Skip this order item if it's null
+                            }
+
+                            if (orderItem.ProductBarcode == input.ProductBarcode && processedItems < input.Quantity)
+                            {
+                                // Match found, change order item status to 2 (finished)
+                                orderItem.Status = 2;
+                                orderItem.CompletionDate = DateTime.UtcNow;
+
+                                if (!await _orderItemService.UpdateAsync(orderItem))
+                                {
+                                    ModelState.AddModelError("", "Failed to finish item order!!");
+                                    return BadRequest(ModelState);
+                                }
+
+                                processedItems++;
+                            }
+                        }
+
+                        // Check if all required order items in the order are finished (status 2)
+                        if (order.OrderItems.All(item => item.Status == 2))
+                        {
+                            // If all required items are finished, change the status of the order to 2
+                            order.Status = 2;
+                            order.FinishedDate = DateTime.UtcNow;
+
+                            if (!await _orderService.UpdateAsync(order))
+                            {
+                                ModelState.AddModelError("", "Failed to finish order!!");
+                                return BadRequest(ModelState);
+                            }
+                        }
+                    }
+
+                    //--------------------------------------------------------------------------------
                     var p = _productService.MapProductEntityToDtoJson(product);
                     return Ok(p);
                 }

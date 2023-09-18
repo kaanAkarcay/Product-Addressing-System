@@ -66,6 +66,64 @@ namespace Infrastructure.Migrations
                     b.ToTable("brands");
                 });
 
+            modelBuilder.Entity("DomainLayer.Models.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("AssignedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("AssignedTo")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("FinishedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("OrderCode")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("OrderType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId");
+
+                    b.ToTable("orders");
+                });
+
+            modelBuilder.Entity("DomainLayer.Models.OrderItem", b =>
+                {
+                    b.Property<int>("OrderItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CompletionDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("OrderFId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("ProductBarcode")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderItemId");
+
+                    b.HasIndex("OrderFId");
+
+                    b.ToTable("orderItems");
+                });
+
             modelBuilder.Entity("DomainLayer.Models.Product", b =>
                 {
                     b.Property<long>("Barcode")
@@ -227,6 +285,17 @@ namespace Infrastructure.Migrations
                     b.Navigation("Shelf");
                 });
 
+            modelBuilder.Entity("DomainLayer.Models.OrderItem", b =>
+                {
+                    b.HasOne("DomainLayer.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderFId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("DomainLayer.Models.Product", b =>
                 {
                     b.HasOne("DomainLayer.Models.Brand", "Brand")
@@ -292,6 +361,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("DomainLayer.Models.Brand", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("DomainLayer.Models.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.ProductCategory", b =>

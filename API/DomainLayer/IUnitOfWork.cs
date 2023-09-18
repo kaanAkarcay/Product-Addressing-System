@@ -12,6 +12,8 @@ namespace DomainLayer
 		IShelfRepository ShelfRepository { get; }
 		IProductAddressingRepository ProductAddressingRepository { get; }
 		IProductShelfDedicationRepository ProductShelfDedicationRepository { get; }
+		IOrderRepository OrderRepository { get; }
+		IOrderItemRepository OrderItemRepository { get; }
 		IRepository<Entity> Repository { get; }
 
 

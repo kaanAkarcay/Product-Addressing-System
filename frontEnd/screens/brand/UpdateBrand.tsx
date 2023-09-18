@@ -1,38 +1,52 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button ,Alert} from 'react-native';
 import BrandDTO from '../../dataModels/BrandDTO';
 import { Styles } from '../../component/Styles';
 import communicator from '../../component/communicator'; // Import your communicator
+import { updateBrand , searchBrand } from '../../services/BrandService';
+import { useDataStore } from '../../component/DataHandler';
 
 const UpdateBrand: React.FC = () => {
   const [searchKey, setSearchKey] = useState('');
-  const [foundBrand, setFoundBrand] = useState<BrandDTO | null>(null);
-  const [updatedBrand, setUpdatedBrand] = useState<BrandDTO>({
-    BrandName: ''
-  });
+  const { brand, setBrand } = useDataStore(); // Use the brand state from useDataStore
+  const {brandFound, setBrandFound} = useDataStore();
+
 
   const handleSearchBrand = async () => {
     try {
-      // Simulate fetching data from your API based on searchKey
-      const response = await communicator.get(`/Brand/getBrand?name=${searchKey}`); // Replace '/getBrand' with your actual endpoint
-      console.log('Found Brand:', response.data);
-      const fetchedBrand = response.data;
-      setFoundBrand(fetchedBrand);
-      setUpdatedBrand(fetchedBrand); // Set the brand for updating
-    } catch (error) {
+      const response = await searchBrand(searchKey);
+      // Replace '/endpoint' with your API endpoint
+      if (response.status == 'success'){
+          //Alert.alert(response.message);
+          response.brand && setBrand(response.brand);              
+           setBrandFound(true);
+      }
+      else  {
+          Alert.alert(response.message)
+      }
+     
+  } catch (error:any) {
       console.error('Error:', error);
-    }
+      Alert.alert(error)
+  }
   };
 
   const handleUpdateBrand = async () => {
     try {
       // Send the updated brand data to your API for updating
-      const response = await communicator.put(`/Brand/updateBrand`, updatedBrand); // Replace with your actual update endpoint
-      console.log('Brand updated:', response.data);
+      const response = await updateBrand(brand);
+      if (response.status == 'success') {
+        Alert.alert(response.message)
+        setBrandFound(false);
+      }
+      else{
+        Alert.alert(response.message)
+      }
       // Handle success and update your UI accordingly
-    } catch (error) {
+    } catch (error:any) {
       console.error('Error updating brand:', error);
       // Handle errors and display appropriate messages to the user
+      Alert.alert(error)
     }
   };
 
@@ -46,14 +60,14 @@ const UpdateBrand: React.FC = () => {
         value={searchKey}
       />
       <Button title="Search Brand" onPress={handleSearchBrand} />
-      {foundBrand && (
+      {brandFound && (
         <View style={Styles.productDetails}>
           <Text>Yes, that brand exists. Update the field below.</Text>
           <TextInput
             style={Styles.input}
             placeholder="Name"
-            onChangeText={(text) => setUpdatedBrand({ ...updatedBrand, BrandName: text })}
-            value={updatedBrand.BrandName}
+            onChangeText={(text) => setBrand({ ...brand, BrandName: text })}
+            value={brand.BrandName}
           />
           <Button title="Update Brand" onPress={handleUpdateBrand} />
         </View>

@@ -48,6 +48,17 @@ const drawerMenu = [
         ],
         
       },
+      {
+        title: 'Orders',
+        menuList: [
+          { title: 'Create Order', screenName: 'Create Order' },
+          { title: 'Read Shelf', screenName: 'Read Shelf' },
+          { title: 'Update Shelf', screenName: 'Update Shelf' },
+          { title: 'Delete Shelf', screenName: 'Delete Shelf' },
+         
+        ],
+        
+      },
     // Add more menu items as needed
   ];
 

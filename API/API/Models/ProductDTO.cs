@@ -10,8 +10,8 @@ namespace API.Models
         public required string Sex { get; set; }
 
         // Navigation property
-        public  string Brand { get; set; }
-        public  string ProductCategory { get; set; }
+        public required  string Brand { get; set; }
+        public  required string ProductCategory { get; set; }
 
 
 

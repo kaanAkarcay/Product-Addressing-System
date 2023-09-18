@@ -11,6 +11,8 @@ namespace Infrastructure
         public DbSet<Shelf> shelves { get; set; }
         public DbSet<ProductAddresing> productAddresings { get; set; }
         public DbSet<ProductShelfDedication> productShelfDedications { get; set; }
+        public DbSet<Order> orders { get; set; }
+        public DbSet<OrderItem> orderItems { get; set; }
 
 
  
@@ -46,6 +48,20 @@ namespace Infrastructure
             modelBuilder.Entity<Shelf>()
                 .Property(s => s.ShelfId) // specifying the property
                 .ValueGeneratedOnAdd(); // indicating it's auto-generated
+
+            modelBuilder.Entity<Order>()
+                .Property(o => o.OrderId)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<OrderItem>()
+                .Property(oi => oi.OrderItemId)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(oi => oi.Order)
+                .WithMany(o => o.OrderItems)
+                .HasForeignKey(oi => oi.OrderFId)
+                .IsRequired(true);
 
             // Product-Brand relationship
             modelBuilder.Entity<Product>()

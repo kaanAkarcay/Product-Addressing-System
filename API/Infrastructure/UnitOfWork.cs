@@ -20,6 +20,8 @@ namespace Infrastructure
         public IRepository<Entity> Repository { get; }
         public IProductShelfDedicationRepository ProductShelfDedicationRepository { get; }
         public IProductAddressingRepository ProductAddressingRepository { get; }
+        public IOrderRepository OrderRepository { get; }
+        public IOrderItemRepository OrderItemRepository { get; }
 
 
         //public IRepository<Entity> Repository =>  new Repository<Entity>(_DbContext);
@@ -36,6 +38,8 @@ namespace Infrastructure
             Repository = new Repository<Entity>(_DbContext);
             ProductShelfDedicationRepository = new ProductShelfDedicationRepository(_DbContext);
             ProductAddressingRepository = new ProductAddressingRepository(_DbContext);
+            OrderRepository = new OrderRepository(_DbContext);
+            OrderItemRepository = new OrderItemRepository(_DbContext);
 
 
         }

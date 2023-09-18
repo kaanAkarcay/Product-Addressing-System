@@ -1,40 +1,52 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button ,Alert} from 'react-native';
 import BrandDTO from '../../dataModels/BrandDTO';
 import { Styles } from '../../component/Styles';
 import communicator from '../../component/communicator';
 import { useDataStore } from '../../component/DataHandler';
+import { deleteBrand, searchBrand } from '../../services/BrandService';
 
 const DeleteBrand: React.FC = () => {
     const [searchKey, setSearchKey] = useState('');
     const { brand, setBrand } = useDataStore(); // Use the brand state from useDataStore
-    const [brandFound, setBrandFound] = useState<boolean>(false);
+    const {brandFound, setBrandFound} = useDataStore();
 
 
     const handleSearchBrand = async (searchKey: string) => {
         try {
-            const response = await communicator.get(`/Brand/getBrand?name=${searchKey}`);
+            const response = await searchBrand(searchKey);
             // Replace '/endpoint' with your API endpoint
-            console.log(response.data);
-            setBrand(response.data); // Assign the response data to the brand state
-            setBrandFound(true);
-        } catch (error) {
+            if (response.status == 'success'){
+                //Alert.alert(response.message);
+                response.brand && setBrand(response.brand);              
+                 setBrandFound(true);
+            }
+            else  {
+                Alert.alert(response.message)
+            }
+           
+        } catch (error:any) {
             console.error('Error:', error);
+            Alert.alert(error)
         }
     };
 
     const handleDeleteBrand = async () => {
         try {
-            // You can implement the delete functionality here
-            // For example:
-            // await communicator.delete(`/Brand/deleteBrand?name=${brand.BrandName}`);
-            // Replace '/deleteEndpoint' with your actual delete endpoint
-            // You should handle success and error cases accordingly
-            await communicator.delete(`/Brand/deleteBrand?name=${searchKey}`);
-            console.log('Deleting Brand:', brand?.BrandName);
-            setBrandFound(false);
-        } catch (error) {
+            const response = await deleteBrand(searchKey)
+            if (response.status == 'success') {
+                Alert.alert(response.message)
+                setBrandFound(false);   
+            }
+            else  {
+                Alert.alert(response.message)
+
+                }
+            }
+            
+         catch (error:any) {
             console.error('Error:', error);
+            Alert.alert(error)
         }
     };
 

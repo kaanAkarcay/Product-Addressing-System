@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View ,TextInput,Button} from 'react-native';
+import { StyleSheet, Text, View ,TextInput,Button, TouchableOpacity} from 'react-native';
 import TabNavigation from '../navigation/TabNavigation';
 import MyBarCodeScanner from '../component/BarcodeScanner';
 import { Styles } from '../component/Styles';
@@ -11,12 +11,19 @@ export default function RemoveProduct() {
   const [removal, setRemoval] = useState<ProductRemovalWrapperDTO>({
     ProductBarcode:'',
     Address:'',
-    PickedBy:'',
-    Quantity:''
+    PickedBy:'admin',
+    Quantity:'1'
   });
 
  
-
+  const handleQuantityChange = (value:any) => {
+    const currentQuantity = parseInt(removal.Quantity, 10); // Parse to an integer
+    if (!isNaN(currentQuantity)) {
+      // Check if it's a valid number
+      const newQuantity = currentQuantity + value;
+      setRemoval({ ...removal, Quantity: newQuantity.toString() }); // Convert back to a string
+    }
+  };
 
     const handleRemoval = async () => {
       try{
@@ -57,20 +64,26 @@ export default function RemoveProduct() {
           onChangeText={(text) => setRemoval({ ...removal, Address: text})}
           value={removal.Address}
         />
-        <TextInput
-          style={Styles.input}
-          placeholder={"Picked By:"}
- 
-          onChangeText={(text) => setRemoval({ ...removal, PickedBy: text})}
-          value={removal.PickedBy}
-        />
-        <TextInput
-          style={Styles.input}
+       
+               <View style={Styles.quantityContainer}>
+               <Text style={Styles.quantityButtons}>Quantity : </Text>
+          <TextInput
+          style={Styles.QuantityTextField}
           placeholder={"Quantity"}
           keyboardType="numeric"
           onChangeText={(text) => setRemoval({ ...removal, Quantity: text})}
           value={removal.Quantity}
         />
+            <View style={Styles.quantityButtons}>
+            
+              <TouchableOpacity onPress={() => handleQuantityChange(1)}>
+                <Text style={Styles.quantityButton}>+</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleQuantityChange(-1)}>
+                <Text style={Styles.quantityButton}>-</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
               <Button title="Remove"  onPress={handleRemoval} />
 
           </View>

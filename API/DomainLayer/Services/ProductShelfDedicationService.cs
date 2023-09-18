@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Globalization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using DomainLayer.Models;
 using Newtonsoft.Json.Linq;
 
@@ -10,7 +13,92 @@ namespace DomainLayer.Services
 		{
 		}
 
-		public async Task<ProductShelfDedication> CreateDedicationAsync(string newDedication) {
+		public async Task<ProductShelfDedication> FindProductShelfDedicationById(int id)
+		{
+			return await _uow.ProductShelfDedicationRepository.FindByIdAsync(id);
+		}
+
+        public async Task<List<ProductShelfDedication>> FindAllProductShelfDedications()
+        {
+			return await _uow.ProductShelfDedicationRepository.FindAllAsync();
+        }
+
+
+		public async Task<string> ProductShelfDedicationEntityToDTO(ProductShelfDedication productShelfDedication)
+		{
+            if (productShelfDedication == null)
+                return null;
+			var shelf = await _uow.ShelfRepository.FindByIdAsync(productShelfDedication.ShelfFId);
+			var brand = await _uow.BrandRepository.FindByIdAsync(productShelfDedication.BrandFId);
+			ProductCategory? productCategory=null;
+
+            int? pdChecker;
+			pdChecker = productShelfDedication.ProductCategoryFId;
+			if(pdChecker!=null)
+			 productCategory = await _uow.ProductCategoryRepository.FindByIdAsync((int)pdChecker);
+
+			var pdName = productCategory?.ProductsCategoryName ?? string.Empty;
+
+            JObject jsonObject = new JObject
+            {
+			            
+				["Sex"] = productShelfDedication.Sex ?? string.Empty,
+                ["Face"] = (productShelfDedication.Face != null) ? productShelfDedication.Face?.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                ["Row"] = (productShelfDedication.Row != null) ? productShelfDedication.Row?.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                ["Column"] = (productShelfDedication.Column != null) ? productShelfDedication.Column?.ToString(CultureInfo.InvariantCulture) : string.Empty,
+
+
+                ["ShelfName"] = shelf.ShelfName,
+
+				["BrandName"] = brand.BrandName,
+
+				["ProductCategoryName"] = pdName ?? string.Empty
+            };
+
+			return jsonObject.ToString();
+        }
+
+
+
+        public async Task<List<string>> ProductShelfDedicationsToDTOList(List<ProductShelfDedication> productShelfDedications)
+        {
+            if (productShelfDedications == null || productShelfDedications.Count == 0)
+                return null;
+
+            var jsonArray = new List<string>();
+
+            foreach (var productShelfDedication in productShelfDedications)
+            {
+                var shelf = await _uow.ShelfRepository.FindByIdAsync(productShelfDedication.ShelfFId);
+                var brand = await _uow.BrandRepository.FindByIdAsync(productShelfDedication.BrandFId);
+                ProductCategory? productCategory = null;
+
+                int? pdChecker;
+                pdChecker = productShelfDedication.ProductCategoryFId;
+                if (pdChecker != null)
+                    productCategory = await _uow.ProductCategoryRepository.FindByIdAsync((int)pdChecker);
+
+                var pdName = productCategory?.ProductsCategoryName ?? string.Empty;
+
+                var jsonObject = new
+                {
+                    Sex = productShelfDedication.Sex ?? string.Empty,
+                    Face = (productShelfDedication.Face != null || productShelfDedication.Face == 0) ? productShelfDedication.Face?.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                    Row = (productShelfDedication.Row != null || productShelfDedication.Row == 0) ? productShelfDedication.Row?.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                    Column = (productShelfDedication.Column != null || productShelfDedication.Column == 0) ? productShelfDedication.Column?.ToString(CultureInfo.InvariantCulture) : string.Empty,
+                    ShelfName = shelf.ShelfName,
+                    BrandName = brand.BrandName,
+                    ProductCategoryName = pdName
+                };
+
+               
+                jsonArray.Add(jsonObject.ToString());
+            }
+
+			return jsonArray;
+        }
+
+        public async Task<ProductShelfDedication> CreateDedicationAsync(string newDedication) {
 
             JObject jsonObject = JObject.Parse(newDedication);
             

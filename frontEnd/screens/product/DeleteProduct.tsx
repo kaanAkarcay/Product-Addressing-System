@@ -1,25 +1,33 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet ,Alert} from 'react-native';
 import { Styles } from '../../component/Styles';
 import ProductDTO from '../../dataModels/ProductDTO';
 import communicator from '../../component/communicator';
 import { useDataStore } from '../../component/DataHandler';
+import { deleteProduct, getProductById } from '../../services/ProductService';
 
 const DeleteProduct: React.FC = () => {  
   const [searchKey, setSearchKey] = useState('');
   const {product, setProduct} = useDataStore();;
-  const [productFound, setProductFound] = useState<boolean>(false);
+  const {productFound, setProductFound} = useDataStore();
 
   const handleSearchProduct = async () => {
     try {
-        // Simulate fetching data from API based on the product name
-        const response = await communicator.get(`/Product/getProduct?barcode=${searchKey}`);
-        setProduct(response.data);
-        setProductFound(true);
+      // Simulate fetching data from API based on the product name
+      const response = await getProductById(searchKey);
+      if (response.status == 'success') {
+          Alert.alert(response.message)
+          response.product && setProduct(response.product);
+          setProductFound(true);
 
-    } catch (error) {
-        console.error('Error:', error);
-    }
+      }
+      else{
+          Alert.alert(response.message)
+      }
+  
+  } catch (error:any) {
+      Alert.alert(error)
+  }
 };
 
   const handleDeleteProduct = async () => {
@@ -29,18 +37,19 @@ const DeleteProduct: React.FC = () => {
     // You can now send a request to your API to delete the product with productId
     // For example:
     try {
-      const response = await communicator.delete(`/Product/deleteProduct?barcode=${searchKey}`);
-      if (response.status === 200) {
+      const response = await deleteProduct(searchKey)
+      if (response.status == 'success') {
         console.log('Product deleted successfully');
+        Alert.alert(response.message)
         // Optionally, you can clear the product data or reset the form
     
         setProductFound(false);
        
       } else {
-        console.error('Failed to delete product');
+        Alert.alert(response.message)
       }
-    } catch (error) {
-      console.error('Error deleting product:', error);
+    } catch (error:any) {
+      Alert.alert(error)
     }
   };
 

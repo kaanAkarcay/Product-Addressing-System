@@ -31,6 +31,28 @@ namespace Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "orders",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    OrderCode = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    OrderType = table.Column<int>(type: "int", nullable: false),
+                    AssignedTo = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    AssignedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    FinishedDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_orders", x => x.OrderId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "productCategories",
                 columns: table => new
                 {
@@ -60,6 +82,29 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_shelves", x => x.ShelfId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "orderItems",
+                columns: table => new
+                {
+                    OrderItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ProductBarcode = table.Column<long>(type: "bigint", nullable: false),
+                    CompletionDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    OrderFId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_orderItems", x => x.OrderItemId);
+                    table.ForeignKey(
+                        name: "FK_orderItems_orders_OrderFId",
+                        column: x => x.OrderFId,
+                        principalTable: "orders",
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -202,6 +247,11 @@ namespace Infrastructure.Migrations
                 column: "ShelfFId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_orderItems_OrderFId",
+                table: "orderItems",
+                column: "OrderFId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_productAddresings_AddressFId",
                 table: "productAddresings",
                 column: "AddressFId");
@@ -241,10 +291,16 @@ namespace Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "orderItems");
+
+            migrationBuilder.DropTable(
                 name: "productAddresings");
 
             migrationBuilder.DropTable(
                 name: "productShelfDedications");
+
+            migrationBuilder.DropTable(
+                name: "orders");
 
             migrationBuilder.DropTable(
                 name: "addresses");

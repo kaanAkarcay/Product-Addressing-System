@@ -33,6 +33,8 @@ builder.Services.AddScoped<IShelfRepository, ShelfRepository>();
 builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 builder.Services.AddScoped<IProductShelfDedicationRepository, ProductShelfDedicationRepository>();
 builder.Services.AddScoped<IProductAddressingRepository, ProductAddressingRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
 
 
@@ -47,6 +49,8 @@ builder.Services.AddScoped<ShelfService>();
 builder.Services.AddScoped<AddressService>();
 builder.Services.AddScoped<ProductAddressingService>();
 builder.Services.AddScoped<ProductShelfDedicationService>();
+builder.Services.AddScoped<OrderService>();
+builder.Services.AddScoped<OrderItemService>();
 
 
 

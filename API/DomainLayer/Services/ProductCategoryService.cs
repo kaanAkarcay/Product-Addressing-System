@@ -21,6 +21,10 @@ namespace DomainLayer.Services
             return await _uow.ProductCategoryRepository.FindAllAsync();
         }
 
+        public async Task<ProductCategory> FindProductCategoryByIdAsync(int id)
+        {
+            return await _uow.ProductCategoryRepository.FindByIdAsync(id);
+        }
 
         // Map single ProductCategory entity to DTO in JSON format
         public string MapProductCategoryEntityToDtoJson(ProductCategory productCategory)
