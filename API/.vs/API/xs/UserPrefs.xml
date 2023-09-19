@@ -1,89 +1,45 @@
 ﻿<Properties StartupConfiguration="{ABC99269-9BF3-4533-8A66-D3248BF915D7}|https">
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.API PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
   <MonoDevelop.Ide.Workbench ActiveDocument="API/Controllers/OrderController.cs">
     <Files>
-      <File FileName="API/Controllers/BrandController.cs" Line="118" Column="1" />
-      <File FileName="API/Controllers/ProductAdressingController.cs" Line="148" Column="83" />
-      <File FileName="API/Controllers/ProductCategoryController.cs" Line="35" Column="54" />
-      <File FileName="Infrastructure/DbContext.cs" Line="22" Column="1" />
-      <File FileName="DomainLayer/Models/Shelf.cs" Line="1" Column="1" />
-      <File FileName="DomainLayer/Models/Brand.cs" Line="7" Column="29" />
-      <File FileName="DomainLayer/Models/Product.cs" Line="8" Column="30" />
-      <File FileName="DomainLayer/Repositories/IShelfRepository.cs" Line="2" Column="1" />
-      <File FileName="DomainLayer/Models/Order.cs" Line="21" Column="39" />
-      <File FileName="DomainLayer/Models/OrderItem.cs" Line="7" Column="18" />
-      <File FileName="DomainLayer/Models/Address.cs" />
-      <File FileName="DomainLayer/Models/ProductAddresing.cs" />
-      <File FileName="DomainLayer/Models/ProductCategory.cs" />
-      <File FileName="DomainLayer/Models/ProductShelfDedication.cs" />
-      <File FileName="DomainLayer/Repositories/IAddressRepository.cs" Line="1" Column="1" />
-      <File FileName="DomainLayer/Repositories/IBrandRepository.cs" Line="15" Column="1" />
-      <File FileName="DomainLayer/Repositories/IProductAddressingRepository.cs" />
-      <File FileName="DomainLayer/Repositories/IProductCategoryRepository.cs" />
-      <File FileName="DomainLayer/Repositories/IProductRepository.cs" />
-      <File FileName="DomainLayer/Repositories/IProductShelfDedicationRepository.cs" />
-      <File FileName="DomainLayer/SeedWork/Entity.cs" Line="1" Column="1" />
-      <File FileName="DomainLayer/SeedWork/IRepository.cs" Line="4" Column="50" />
-      <File FileName="DomainLayer/Services/AddressService.cs" />
-      <File FileName="DomainLayer/Services/BrandService.cs" Line="58" Column="48" />
-      <File FileName="DomainLayer/Services/ProductAddressingService.cs" Line="1" Column="1" />
-      <File FileName="DomainLayer/Services/ProductCategoryService.cs" />
-      <File FileName="DomainLayer/Services/ProductService.cs" Line="124" Column="36" />
-      <File FileName="DomainLayer/Services/ProductShelfDedicationService.cs" />
-      <File FileName="DomainLayer/Services/Service.cs" Line="1" Column="1" />
-      <File FileName="DomainLayer/Services/ShelfService.cs" Line="1" Column="1" />
-      <File FileName="DomainLayer/IUnitOfWork.cs" Line="20" Column="62" />
-      <File FileName="DomainLayer/Repositories/IOrderRepository.cs" Line="8" Column="48" />
-      <File FileName="DomainLayer/Repositories/IOrderItemRepository.cs" Line="6" Column="62" />
-      <File FileName="Infrastructure/UnitOfWork.cs" Line="48" Column="1" />
-      <File FileName="Infrastructure/Repositories/OrderRepository.cs" Line="27" Column="1" />
-      <File FileName="Infrastructure/Repositories/OrderItemRepository.cs" Line="11" Column="68" />
-      <File FileName="Infrastructure/Repositories/BrandRepository.cs" Line="28" Column="1" />
-      <File FileName="Infrastructure/Repositories/ShelfRepository.cs" Line="1" Column="1" />
-      <File FileName="DomainLayer/Services/OrderService.cs" Line="32" Column="10" />
-      <File FileName="DomainLayer/Services/OrderItemService.cs" Line="11" Column="1" />
+      <File FileName="API/Models/ProductShelfDedicationDTO.cs" Line="7" Column="1" />
+      <File FileName="API/Controllers/ProductShelfDedicationController.cs" Line="57" Column="29" />
+      <File FileName="DomainLayer/Services/ProductShelfDedicationService.cs" Line="88" Column="101" />
+      <File FileName="DomainLayer/Services/OrderService.cs" Line="72" Column="69" />
+      <File FileName="API/Models/ProductShelfDedicationDTOwID.cs" Line="4" Column="43" />
+      <File FileName="DomainLayer/Services/ProductCategoryService.cs" Line="26" Column="75" />
       <File FileName="API/Program.cs" Line="19" Column="1" />
-      <File FileName="API/Controllers/OrderController.cs" Line="49" Column="64" />
-      <File FileName="API/Models/OrderWrapperDTO.cs" Line="10" Column="28" />
-      <File FileName="API/Models/ProductInsertionWrapperDTO.cs" Line="3" Column="1" />
-      <File FileName="API/Models/ProductDTO.cs" Line="14" Column="25" />
-      <File FileName="API/Controllers/ProductController.cs" Line="132" Column="68" />
-      <File FileName="Infrastructure/Repositories/Repository.cs" Line="1" Column="1" />
-      <File FileName="Infrastructure/Migrations/20230912135649_InitialMigration.cs" Line="100" Column="18" />
-      <File FileName="API/Models/BrandDTO.cs" Line="7" Column="55" />
+      <File FileName="Infrastructure/DbContext.cs" Line="1" Column="1" />
+      <File FileName="Infrastructure/Repositories/Repository.cs" Line="38" Column="1" />
+      <File FileName="DomainLayer/Services/ProductService.cs" Line="1" Column="1" />
+      <File FileName="DomainLayer/Services/OrderItemService.cs" Line="11" Column="4" />
+      <File FileName="DomainLayer/Models/Order.cs" Line="1" Column="1" />
+      <File FileName="DomainLayer/Models/OrderItem.cs" Line="1" Column="1" />
+      <File FileName="API/Models/OrderWrapperDTO.cs" Line="7" Column="3" />
+      <File FileName="API/Controllers/ProductController.cs" Line="1" Column="1" />
+      <File FileName="API/Controllers/OrderController.cs" Line="97" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="API" expanded="True">
-            <Node name="API">
-              <Node name="Dependencies" expanded="True" />
-              <Node name="Controllers" expanded="True">
-                <Node name="OrderController.cs" selected="True" />
-              </Node>
+          <Node name="API">
+            <Node name="API" expanded="True">
+              <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True" />
-              <Node name="Properties" expanded="True" />
-              <Node name="appsettings.json" expanded="True" />
             </Node>
-            <Node name="DomainLayer">
-              <Node name="Models" expanded="True" />
-              <Node name="Repositories" expanded="True" />
+            <Node name="DomainLayer" expanded="True">
               <Node name="SeedWork" expanded="True" />
               <Node name="Services" expanded="True" />
-            </Node>
-            <Node name="Infrastructure" expanded="True">
-              <Node name="Dependencies" expanded="True" />
-              <Node name="Repositories" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
 </Properties>
