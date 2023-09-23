@@ -109,7 +109,7 @@ namespace API.Controllers
                             //--------------------------------------------------------------------------------
                             foreach (var order in filteredOrders)
                             {
-                                order.OrderItems = await _orderItemService.FindOrderItemByOrderId(order.OrderId);
+                                order.OrderItems = await _orderItemService.FindOrderItemByOrderId(order.Id);
 
                                 // Skip processing if OrderItems is null
                                 if (order.OrderItems == null && order.Status != 2)
@@ -179,7 +179,7 @@ namespace API.Controllers
                         //--------------------------------------------------------------------------------
                         foreach (var order in filteredOrders)
                         {
-                            order.OrderItems = await _orderItemService.FindOrderItemByOrderId(order.OrderId);
+                            order.OrderItems = await _orderItemService.FindOrderItemByOrderId(order.Id);
 
                             // Skip processing if OrderItems is null
                             if (order.OrderItems == null && order.Status != 2)
@@ -280,7 +280,7 @@ namespace API.Controllers
                     //--------------------------------------------------------------------------------
                     foreach (var order in filteredOrders)
                     {
-                        order.OrderItems = await _orderItemService.FindOrderItemByOrderId(order.OrderId);
+                        order.OrderItems = await _orderItemService.FindOrderItemByOrderId(order.Id);
                         // Skip processing if OrderItems is null
                         if (order.OrderItems == null && order.Status!=2)
                         {
@@ -352,8 +352,8 @@ namespace API.Controllers
                 AddressedBy = input.AddressedBy,
                 AddressedTime = DateTime.UtcNow,
                 AddressCode = address.AdressBarcode,
-                ProductFId = product.Barcode,
-                AddressFId = address.AddressId, // Assuming Address has a property called AddressId
+                ProductFId = product.Id,
+                AddressFId = address.Id, // Assuming Address has a property called AddressId
                 IsDeleted = false, // Assuming default value is false for a new entry
                 Product = product, // If your service method does not populate navigation properties, you might need to fetch the Product from the database first
                 Address = address

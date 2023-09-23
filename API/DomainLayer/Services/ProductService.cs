@@ -140,7 +140,7 @@ namespace DomainLayer.Services
                  brand = await _uow.BrandRepository.FindByNameAsync(brandName);
                 if (brand == null)
                     return null; // Handle error condition here
-                brandID = brand.BrandId;
+                brandID = brand.Id;
             }
 
             if (!string.IsNullOrEmpty(productCategoryName))
@@ -148,7 +148,7 @@ namespace DomainLayer.Services
                  productCategory = await _uow.ProductCategoryRepository.FindByNameAsync(productCategoryName);
                 if (productCategory == null)
                     return null;
-                productCategoryID = productCategory.ProductCategoryId;
+                productCategoryID = productCategory.Id;
             }
           
 

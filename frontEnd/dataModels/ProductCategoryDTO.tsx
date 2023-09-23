@@ -1,4 +1,5 @@
 interface ProductCategoryDTO {
+  Id?:string;
   ProductsCategoryName: string;
   }
   

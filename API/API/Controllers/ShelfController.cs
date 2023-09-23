@@ -66,7 +66,8 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<IEnumerable<string>>> updateShelf(ShelfDTO newShelf)
         {
-            var shelf = await _shelfService.GetShelfByNameAsync(newShelf.ShelfName);
+            //var shelf = await _shelfService.GetShelfByNameAsync(newShelf.ShelfName);
+            var shelf = await _shelfService.FindShelfById(newShelf.Id);
             if (shelf == null)
             {
                 ModelState.AddModelError("", "Shelf is not exists!!");

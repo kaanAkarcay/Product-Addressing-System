@@ -1,4 +1,5 @@
 interface ProductDTO {
+    Id?:string;
     Barcode: string;
     ProductName: string;
     Sex: string;

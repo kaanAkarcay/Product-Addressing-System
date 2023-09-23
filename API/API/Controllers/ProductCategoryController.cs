@@ -83,7 +83,8 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<IEnumerable<string>>> updateProductCategory(ProductCategoryDTO newProductCategory)
         {
-            var productCategory = await _productCategoryService.FindProductCategoryByNameAsync(newProductCategory.ProductsCategoryName);
+            //var productCategory = await _productCategoryService.FindProductCategoryByNameAsync(newProductCategory.ProductsCategoryName);
+            var productCategory = await _productCategoryService.FindProductCategoryByIdAsync(newProductCategory.Id);
             if (productCategory == null)
             {
                 ModelState.AddModelError("", "Product Category is not exists!!");

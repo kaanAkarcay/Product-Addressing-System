@@ -1,5 +1,5 @@
 interface ProductShelfDedicationDTO{
-
+    Id?:string;
     Sex:string;
     Row: number;
     Column: number;

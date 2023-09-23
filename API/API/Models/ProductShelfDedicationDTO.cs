@@ -5,6 +5,7 @@ namespace API.Models
 {
 	public class ProductShelfDedicationDTO
 	{
+        public int Id { get; set; }
         public string? Sex { get; set; }
         public int? Face { get; set; }
         public int? Row { get; set; }

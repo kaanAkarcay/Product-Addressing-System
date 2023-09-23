@@ -1,4 +1,5 @@
 interface BrandDTO {
+  Id?:string;
     BrandName: string;
   }
   

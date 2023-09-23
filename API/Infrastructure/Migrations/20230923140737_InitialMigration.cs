@@ -19,14 +19,14 @@ namespace Infrastructure.Migrations
                 name: "brands",
                 columns: table => new
                 {
-                    BrandId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     BrandName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_brands", x => x.BrandId);
+                    table.PrimaryKey("PK_brands", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -34,7 +34,7 @@ namespace Infrastructure.Migrations
                 name: "orders",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     OrderCode = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -48,7 +48,7 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_orders", x => x.OrderId);
+                    table.PrimaryKey("PK_orders", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -56,14 +56,14 @@ namespace Infrastructure.Migrations
                 name: "productCategories",
                 columns: table => new
                 {
-                    ProductCategoryId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ProductsCategoryName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_productCategories", x => x.ProductCategoryId);
+                    table.PrimaryKey("PK_productCategories", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -71,7 +71,7 @@ namespace Infrastructure.Migrations
                 name: "shelves",
                 columns: table => new
                 {
-                    ShelfId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ShelfName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -81,7 +81,7 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_shelves", x => x.ShelfId);
+                    table.PrimaryKey("PK_shelves", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -89,7 +89,7 @@ namespace Infrastructure.Migrations
                 name: "orderItems",
                 columns: table => new
                 {
-                    OrderItemId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ProductBarcode = table.Column<long>(type: "bigint", nullable: false),
                     CompletionDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
@@ -98,12 +98,12 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_orderItems", x => x.OrderItemId);
+                    table.PrimaryKey("PK_orderItems", x => x.Id);
                     table.ForeignKey(
                         name: "FK_orderItems_orders_OrderFId",
                         column: x => x.OrderFId,
                         principalTable: "orders",
-                        principalColumn: "OrderId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -112,8 +112,9 @@ namespace Infrastructure.Migrations
                 name: "products",
                 columns: table => new
                 {
-                    Barcode = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Barcode = table.Column<long>(type: "bigint", nullable: false),
                     ProductName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Sex = table.Column<string>(type: "longtext", nullable: false)
@@ -123,18 +124,18 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_products", x => x.Barcode);
+                    table.PrimaryKey("PK_products", x => x.Id);
                     table.ForeignKey(
                         name: "FK_products_brands_BrandFId",
                         column: x => x.BrandFId,
                         principalTable: "brands",
-                        principalColumn: "BrandId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_products_productCategories_ProductCategoryFId",
                         column: x => x.ProductCategoryFId,
                         principalTable: "productCategories",
-                        principalColumn: "ProductCategoryId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -143,7 +144,7 @@ namespace Infrastructure.Migrations
                 name: "addresses",
                 columns: table => new
                 {
-                    AddressId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     AdressBarcode = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -155,12 +156,12 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_addresses", x => x.AddressId);
+                    table.PrimaryKey("PK_addresses", x => x.Id);
                     table.ForeignKey(
                         name: "FK_addresses_shelves_ShelfFId",
                         column: x => x.ShelfFId,
                         principalTable: "shelves",
-                        principalColumn: "ShelfId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -169,7 +170,7 @@ namespace Infrastructure.Migrations
                 name: "productShelfDedications",
                 columns: table => new
                 {
-                    ProductShelfDedicationId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Sex = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -182,24 +183,24 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_productShelfDedications", x => x.ProductShelfDedicationId);
+                    table.PrimaryKey("PK_productShelfDedications", x => x.Id);
                     table.ForeignKey(
                         name: "FK_productShelfDedications_brands_BrandFId",
                         column: x => x.BrandFId,
                         principalTable: "brands",
-                        principalColumn: "BrandId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_productShelfDedications_productCategories_ProductCategoryFId",
                         column: x => x.ProductCategoryFId,
                         principalTable: "productCategories",
-                        principalColumn: "ProductCategoryId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_productShelfDedications_shelves_ShelfFId",
                         column: x => x.ShelfFId,
                         principalTable: "shelves",
-                        principalColumn: "ShelfId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -208,7 +209,7 @@ namespace Infrastructure.Migrations
                 name: "productAddresings",
                 columns: table => new
                 {
-                    ProductAddresingId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     AddressedBy = table.Column<string>(type: "longtext", nullable: false)
@@ -220,23 +221,23 @@ namespace Infrastructure.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     PickedTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    ProductFId = table.Column<long>(type: "bigint", nullable: false),
+                    ProductFId = table.Column<int>(type: "int", nullable: false),
                     AddressFId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_productAddresings", x => x.ProductAddresingId);
+                    table.PrimaryKey("PK_productAddresings", x => x.Id);
                     table.ForeignKey(
                         name: "FK_productAddresings_addresses_AddressFId",
                         column: x => x.AddressFId,
                         principalTable: "addresses",
-                        principalColumn: "AddressId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_productAddresings_products_ProductFId",
                         column: x => x.ProductFId,
                         principalTable: "products",
-                        principalColumn: "Barcode",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");

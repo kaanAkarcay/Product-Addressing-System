@@ -1,11 +1,11 @@
+/Users/tcmaximus/Desktop/React-native/API/DomainLayer/bin/Debug/net7.0/DomainLayer.deps.json
+/Users/tcmaximus/Desktop/React-native/API/DomainLayer/bin/Debug/net7.0/DomainLayer.dll
+/Users/tcmaximus/Desktop/React-native/API/DomainLayer/bin/Debug/net7.0/DomainLayer.pdb
 /Users/tcmaximus/Desktop/React-native/API/DomainLayer/obj/Debug/net7.0/DomainLayer.csproj.AssemblyReference.cache
 /Users/tcmaximus/Desktop/React-native/API/DomainLayer/obj/Debug/net7.0/DomainLayer.GeneratedMSBuildEditorConfig.editorconfig
 /Users/tcmaximus/Desktop/React-native/API/DomainLayer/obj/Debug/net7.0/DomainLayer.AssemblyInfoInputs.cache
 /Users/tcmaximus/Desktop/React-native/API/DomainLayer/obj/Debug/net7.0/DomainLayer.AssemblyInfo.cs
 /Users/tcmaximus/Desktop/React-native/API/DomainLayer/obj/Debug/net7.0/DomainLayer.csproj.CoreCompileInputs.cache
-/Users/tcmaximus/Desktop/React-native/API/DomainLayer/bin/Debug/net7.0/DomainLayer.deps.json
-/Users/tcmaximus/Desktop/React-native/API/DomainLayer/bin/Debug/net7.0/DomainLayer.dll
-/Users/tcmaximus/Desktop/React-native/API/DomainLayer/bin/Debug/net7.0/DomainLayer.pdb
 /Users/tcmaximus/Desktop/React-native/API/DomainLayer/obj/Debug/net7.0/DomainLayer.dll
 /Users/tcmaximus/Desktop/React-native/API/DomainLayer/obj/Debug/net7.0/refint/DomainLayer.dll
 /Users/tcmaximus/Desktop/React-native/API/DomainLayer/obj/Debug/net7.0/DomainLayer.pdb

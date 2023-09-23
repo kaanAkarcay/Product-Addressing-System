@@ -27,7 +27,7 @@ namespace DomainLayer.Services
 					ProductBarcode = item,
 					Status = 0,
 					Order = order,
-					OrderFId = order.OrderId
+					OrderFId = order.Id
 				};
 				if (_uow.OrderItemRepository.Create(orderItem))
 					orderItems.Add(orderItem);

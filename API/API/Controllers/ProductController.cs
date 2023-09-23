@@ -99,9 +99,9 @@ namespace API.Controllers
             product.ProductName = newProduct.ProductName;
             product.Sex = newProduct.Sex;
             product.Brand = newBrand;
-            product.BrandFId = newBrand.BrandId;
+            product.BrandFId = newBrand.Id;
             product.ProductCategory = newProductCategory;
-            product.ProductCategoryFId = newProductCategory.ProductCategoryId;
+            product.ProductCategoryFId = newProductCategory.Id;
             
             if (await _productService.UpdateAsync(product))
             {

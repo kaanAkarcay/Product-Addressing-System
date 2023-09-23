@@ -15,6 +15,11 @@ namespace DomainLayer.Services
             return await _uow.ShelfRepository.FindByShelfByNameAsync(shelfName);
         }
 
+        public async Task<Shelf> FindShelfById(int id)
+        {
+            return await _uow.ShelfRepository.FindByIdAsync(id);
+        }
+
         public async Task<bool> CreateShelfWithAdresses(Shelf shelf)
         {
             if (_uow.ShelfRepository.Create(shelf))
@@ -36,7 +41,7 @@ namespace DomainLayer.Services
                                 Face= f,
                                 Row = r,
                                 Column= c,
-                                ShelfFId = createdShelf.ShelfId,
+                                ShelfFId = createdShelf.Id,
                                 Shelf = createdShelf
 
 

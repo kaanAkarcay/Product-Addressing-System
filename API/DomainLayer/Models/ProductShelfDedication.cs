@@ -6,8 +6,7 @@ namespace DomainLayer.Models
 {
 	public class ProductShelfDedication : Entity
 	{
-		[Key]
-		public int ProductShelfDedicationId { get; set; }
+	
 		public string? Sex { get; set; }
 		public int? Face { get; set; }
 		public int? Row { get; set; }

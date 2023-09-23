@@ -21,7 +21,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("DomainLayer.Models.Address", b =>
                 {
-                    b.Property<int>("AddressId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -44,7 +44,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("ShelfFId")
                         .HasColumnType("int");
 
-                    b.HasKey("AddressId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ShelfFId");
 
@@ -53,7 +53,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("DomainLayer.Models.Brand", b =>
                 {
-                    b.Property<int>("BrandId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -61,14 +61,14 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("BrandId");
+                    b.HasKey("Id");
 
                     b.ToTable("brands");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.Order", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -94,14 +94,14 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("Id");
 
                     b.ToTable("orders");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.OrderItem", b =>
                 {
-                    b.Property<int>("OrderItemId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -117,7 +117,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderItemId");
+                    b.HasKey("Id");
 
                     b.HasIndex("OrderFId");
 
@@ -126,8 +126,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("DomainLayer.Models.Product", b =>
                 {
-                    b.Property<long>("Barcode")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<long>("Barcode")
                         .HasColumnType("bigint");
 
                     b.Property<int?>("BrandFId")
@@ -144,7 +147,7 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("Barcode");
+                    b.HasKey("Id");
 
                     b.HasIndex("BrandFId");
 
@@ -155,7 +158,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("DomainLayer.Models.ProductAddresing", b =>
                 {
-                    b.Property<int>("ProductAddresingId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -182,13 +185,13 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("PickedTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<long>("ProductFId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("ProductFId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductAddresingId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AddressFId");
 
@@ -199,7 +202,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("DomainLayer.Models.ProductCategory", b =>
                 {
-                    b.Property<int>("ProductCategoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -207,14 +210,14 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("ProductCategoryId");
+                    b.HasKey("Id");
 
                     b.ToTable("productCategories");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.ProductShelfDedication", b =>
                 {
-                    b.Property<int>("ProductShelfDedicationId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -239,7 +242,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("ShelfFId")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductShelfDedicationId");
+                    b.HasKey("Id");
 
                     b.HasIndex("BrandFId");
 
@@ -252,7 +255,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("DomainLayer.Models.Shelf", b =>
                 {
-                    b.Property<int>("ShelfId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -269,7 +272,7 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("ShelfId");
+                    b.HasKey("Id");
 
                     b.ToTable("shelves");
                 });

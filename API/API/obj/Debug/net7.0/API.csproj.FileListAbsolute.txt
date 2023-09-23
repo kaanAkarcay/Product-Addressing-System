@@ -57,11 +57,13 @@
 /Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/API.pdb
 /Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/AutoMapper.dll
 /Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+/Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Castle.Core.dll
 /Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Humanizer.dll
 /Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Microsoft.AspNetCore.OpenApi.dll
 /Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.dll
 /Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Abstractions.dll
 /Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Design.dll
+/Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Proxies.dll
 /Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Relational.dll
 /Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Microsoft.Extensions.DependencyModel.dll
 /Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Microsoft.OpenApi.dll
@@ -91,5 +93,3 @@
 /Users/tcmaximus/Desktop/React-native/API/API/obj/Debug/net7.0/API.pdb
 /Users/tcmaximus/Desktop/React-native/API/API/obj/Debug/net7.0/API.genruntimeconfig.cache
 /Users/tcmaximus/Desktop/React-native/API/API/obj/Debug/net7.0/ref/API.dll
-/Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Castle.Core.dll
-/Users/tcmaximus/Desktop/React-native/API/API/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Proxies.dll

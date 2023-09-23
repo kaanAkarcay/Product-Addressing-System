@@ -38,7 +38,7 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
 
-            return Ok(_orderService.MapOrderEntityToDtoJson(order));
+            return Ok(await _orderService.MapOrderEntityToDtoJson(order));
         }
 
 
@@ -55,7 +55,7 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
 
-            return Ok(_orderService.MapOrdersToDtoJson(orders));
+            return Ok(await _orderService.MapOrdersToDtoJson(orders));
         }
 
         [HttpPatch("startOrder", Name = "startOrder")]

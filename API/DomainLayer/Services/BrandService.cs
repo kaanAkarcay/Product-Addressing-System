@@ -9,7 +9,10 @@ namespace DomainLayer.Services
 		public BrandService(IUnitOfWork unitOfWork): base(unitOfWork)
 		{
 		}
-
+        public async Task<Brand> FindBrandByIdAsync(int id)
+        {
+            return await _uow.BrandRepository.FindByIdAsync(id);
+        }
         public async Task<Brand> FindBrandByNameAsync(string name)
         {
             return await _uow.BrandRepository.FindByNameAsync(name);

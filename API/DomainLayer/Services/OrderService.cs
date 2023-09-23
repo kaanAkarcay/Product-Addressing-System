@@ -36,7 +36,7 @@ namespace DomainLayer.Services
                 return null;
 
             var allItems = await _uow.OrderItemRepository.FindAllAsync();
-            var filteredItems = allItems.Where(item => item.OrderFId == order.OrderId).ToList();
+            var filteredItems = allItems.Where(item => item.OrderFId == order.Id).ToList();
             var productBarcodes = filteredItems.Select(item => item.ProductBarcode).ToList();
 
 
@@ -62,7 +62,7 @@ namespace DomainLayer.Services
 
             foreach (var order in orders)
             {
-                var filteredItems = allItems.Where(item => item.OrderFId == order.OrderId).ToList();
+                var filteredItems = allItems.Where(item => item.OrderFId == order.Id).ToList();
                 var productBarcodes = filteredItems.Select(item => item.ProductBarcode).ToList();
 
                 JObject orderJsonObject = new JObject

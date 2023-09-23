@@ -84,7 +84,8 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<IEnumerable<string>>> updateBrand(BrandDTO newBrand)
         {
-            var brand = await _brandService.FindBrandByNameAsync(newBrand.BrandName);
+            //var brand = await _brandService.FindBrandByNameAsync(newBrand.BrandName);
+            var brand = await _brandService.FindBrandByIdAsync(newBrand.Id);
             if (brand == null)
             {
                 ModelState.AddModelError("", "brand is not exists!!");

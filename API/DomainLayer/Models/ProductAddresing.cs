@@ -7,8 +7,7 @@ namespace DomainLayer.Models
 {
 	public class ProductAddresing: Entity
 	{
-		[Key]
-		public int ProductAddresingId { get; set; }
+	
 		public int Quantity { get; set; }
 		public required string AddressedBy { get; set; }
 		public required DateTime AddressedTime { get; set; }
@@ -19,7 +18,7 @@ namespace DomainLayer.Models
 
         
         //Foreign keys
-        public required long ProductFId { get; set; }
+        public required int ProductFId { get; set; }
 		public required int AddressFId { get; set; }
 
 

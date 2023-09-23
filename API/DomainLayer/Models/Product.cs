@@ -7,7 +7,7 @@ namespace DomainLayer.Models
 {
 	public class Product: Entity
 	{
-        [Key]
+        
         public required long Barcode { get; set; }
         public required string ProductName { get; set; }
         public required string Sex { get; set; }

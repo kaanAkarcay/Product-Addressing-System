@@ -71,7 +71,7 @@ namespace API.Controllers
             }
             if (await _productShelfDedicationService.DeleteAsync(ProductShelfDedication))
             {
-                return Ok(_productShelfDedicationService.ProductShelfDedicationEntityToDTO(ProductShelfDedication));
+                return Ok(await _productShelfDedicationService.ProductShelfDedicationEntityToDTO(ProductShelfDedication));
             }
             else
             {
@@ -84,13 +84,13 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult<IEnumerable<string>>> updateProductShelfDedication(ProductShelfDedicationDTOwID newProductShelfDedication)
+        public async Task<ActionResult<IEnumerable<string>>> updateProductShelfDedication(ProductShelfDedicationDTO newProductShelfDedication)
         {
             var oldProductShelfDedication = await _productShelfDedicationService.FindProductShelfDedicationById(newProductShelfDedication.Id);
             ProductCategory? productCategory = null;
             if(oldProductShelfDedication.ProductCategoryFId!=null)
             productCategory = await _productCategoryService.FindProductCategoryByIdAsync((int)oldProductShelfDedication.ProductCategoryFId);
-            var pcId = productCategory?.ProductCategoryId ?? null;
+            var pcId = productCategory?.Id ?? null;
             if (oldProductShelfDedication == null)
             {
                 ModelState.AddModelError("", "ProductShelfDedication is not exists!!");
@@ -104,7 +104,7 @@ namespace API.Controllers
             oldProductShelfDedication.ProductCategoryFId = pcId;
             if (await _productShelfDedicationService.UpdateAsync(oldProductShelfDedication))
             {
-                return Ok(_productShelfDedicationService.ProductShelfDedicationEntityToDTO(oldProductShelfDedication));
+                return Ok(await _productShelfDedicationService.ProductShelfDedicationEntityToDTO(oldProductShelfDedication));
             }
             else
             {

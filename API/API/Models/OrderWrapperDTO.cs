@@ -5,7 +5,8 @@ namespace API.Models
 {
 	public class OrderWrapperDTO
 	{
-		public required int OrderType { get ; set ;}
+        public int Id { get; set; }
+        public required int OrderType { get ; set ;}
 		public string? AssignedTo { get; set; }
 		public string? OrderCode { get; set; }
 

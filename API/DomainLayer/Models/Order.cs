@@ -6,8 +6,6 @@ namespace DomainLayer.Models
 {
     public class Order : Entity
     {
-        [Key]
-        public int OrderId { get; set; }
         public required string OrderCode { get; set; }
         public required int OrderType { get; set; }
         public string? AssignedTo { get; set; }

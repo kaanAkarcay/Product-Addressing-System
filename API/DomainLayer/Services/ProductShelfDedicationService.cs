@@ -117,11 +117,11 @@ namespace DomainLayer.Services
                 Row = jsonObject.GetValue("Row")?.Value<int?>() == 0 ? null : jsonObject.GetValue("Row")?.Value<int?>(),
                 Column = jsonObject.GetValue("Column")?.Value<int?>() == 0 ? null : jsonObject.GetValue("Column")?.Value<int?>(),
                 Shelf = shelf,
-				ShelfFId = shelf.ShelfId,
+				ShelfFId = shelf.Id,
 				Brand = brand,
-				BrandFId = brand.BrandId,
+				BrandFId = brand.Id,
 				ProductCategory = productCategory,
-				ProductCategoryFId = productCategory?.ProductCategoryId
+				ProductCategoryFId = productCategory?.Id
 
 
             };

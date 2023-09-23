@@ -6,8 +6,7 @@ namespace DomainLayer.Models
 {
 	public class Brand : Entity
     {
-        [Key]
-        public int BrandId { get; set; }
+     
         public required string BrandName { get; set; }
 
 

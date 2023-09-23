@@ -52,7 +52,7 @@ const drawerMenu = [
         title: 'Orders',
         menuList: [
           { title: 'Create Order', screenName: 'Create Order' },
-          { title: 'Read Shelf', screenName: 'Read Shelf' },
+          { title: 'List Orders', screenName: 'List Orders' },
           { title: 'Update Shelf', screenName: 'Update Shelf' },
           { title: 'Delete Shelf', screenName: 'Delete Shelf' },
          

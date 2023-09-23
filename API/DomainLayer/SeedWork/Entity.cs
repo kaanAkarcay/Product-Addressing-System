@@ -1,9 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace DomainLayer.SeedWork
 {
 	public abstract class Entity
 	{
-		//public int Id { get; set; }
+        [Key]
+        public int Id { get; set; }
 	}
 }
 

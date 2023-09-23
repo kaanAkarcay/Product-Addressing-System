@@ -7,8 +7,7 @@ namespace DomainLayer.Models
 {
     public class Address : Entity
     {
-        [Key]
-        public int AddressId { get; set; }
+   
         public required string AdressBarcode { get; set; }
         public int ProductAmount { get; set; }
         public required int Row { get; set; }

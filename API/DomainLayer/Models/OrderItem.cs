@@ -6,8 +6,6 @@ namespace DomainLayer.Models
 {
     public class OrderItem : Entity
     {
-        [Key]
-        public int OrderItemId { get; set; }
         public required long ProductBarcode { get; set; }
         public DateTime? CompletionDate { get; set; }
         public required int Status { get; set; }

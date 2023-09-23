@@ -21,6 +21,7 @@ import ReadShelf from '../screens/shelf/ReadShelf';
 import UpdateShelf from '../screens/shelf/UpdateShelf';
 import DeleteShelf from '../screens/shelf/DeleteShelf';
 import CreateOrder from '../screens/order/CreateOrder';
+import ListOrders from '../screens/order/ListOrders';
 
 const Tab = createBottomTabNavigator();
 export default function TabNavigation() {
@@ -55,6 +56,8 @@ export default function TabNavigation() {
       <Tab.Screen name="Delete Shelf" component={DeleteShelf} options={{ headerShown: false, tabBarButton: () => null }} />
 
       <Tab.Screen name="Create Order" component={CreateOrder} options={{ headerShown: false, tabBarButton: () => null }} />
+      <Tab.Screen name="List Orders" component={ListOrders} options={{ headerShown: false, tabBarButton: () => null }} />
+
     </Tab.Navigator>
   );
 }

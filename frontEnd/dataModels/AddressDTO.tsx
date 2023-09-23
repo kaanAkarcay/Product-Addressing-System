@@ -1,4 +1,5 @@
 interface  AddressDTO{
+    Id?:string;
     AdressBarcode:string;
     ProductAmount: number;
     Row: number;

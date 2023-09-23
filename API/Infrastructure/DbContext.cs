@@ -35,26 +35,29 @@ namespace Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Brand>()
-                .Property(b => b.BrandId) // specifying the property
+                .Property(b => b.Id) // specifying the property
                 .ValueGeneratedOnAdd(); // indicating it's auto-generated
 
 
             modelBuilder.Entity<ProductCategory>()
-                .Property(pc => pc.ProductCategoryId) // specifying the property
+                .Property(pc => pc.Id) // specifying the property
                 .ValueGeneratedOnAdd(); // indicating it's auto-generated
 
             modelBuilder.Entity<Shelf>()
-                .Property(s => s.ShelfId) // specifying the property
+                .Property(s => s.Id) // specifying the property
                 .ValueGeneratedOnAdd(); // indicating it's auto-generated
 
             modelBuilder.Entity<Order>()
-                .Property(o => o.OrderId)
+                .Property(o => o.Id)
                 .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<OrderItem>()
-                .Property(oi => oi.OrderItemId)
+                .Property(oi => oi.Id)
                 .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<OrderItem>()
@@ -87,7 +90,7 @@ namespace Infrastructure
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(true);
             modelBuilder.Entity<Address>()
-                .Property(a => a.AddressId) // specifying the property
+                .Property(a => a.Id) // specifying the property
                 .ValueGeneratedOnAdd(); // indicating it's auto-generated
 
             // ProductAddresing-Product relationship
@@ -105,7 +108,7 @@ namespace Infrastructure
                 .IsRequired(true);
 
             modelBuilder.Entity<ProductAddresing>()
-                .Property(pa => pa.ProductAddresingId) // specifying the property
+                .Property(pa => pa.Id) // specifying the property
                 .ValueGeneratedOnAdd(); // indicating it's auto-generated
 
             // ProductShelfDedication-Shelf relationship
@@ -131,7 +134,7 @@ namespace Infrastructure
                 .OnDelete(DeleteBehavior.SetNull)
                 .IsRequired(false);
             modelBuilder.Entity<ProductShelfDedication>()
-                .Property(psd => psd.ProductShelfDedicationId) // specifying the property
+                .Property(psd => psd.Id) // specifying the property
                 .ValueGeneratedOnAdd(); // indicating it's auto-generated
 
         }

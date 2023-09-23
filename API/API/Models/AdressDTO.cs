@@ -5,7 +5,7 @@ namespace API.Models
 {
 	public class AdressDTO
 	{
-      
+        public int Id { get; set; }
         public required string AdressBarcode { get; set; }
         public int ProductAmount { get; set; }
         public int Row { get; set; }//5

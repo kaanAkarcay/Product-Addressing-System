@@ -3,6 +3,7 @@ namespace API.Models
 {
     public class ProductDTO
     {
+        public int Id { get; set; }
         [Required]
         [Range(1000000000000, 9999999999999)]
         public long Barcode { get; set; }
