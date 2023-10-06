@@ -54,16 +54,3 @@ Crafted in React Native, initialized with the latest React Expo CLI and powered 
 3. 🚀 Launch the Expo project via `npx expo start`.
 
 ---
-
-## 🏷️ **Repo Name Suggestions**:
-- WarehouseProductAddressingSystem
-- 📍 ShelfSuggester
-- 🗃️ WareHouseOptimiser
-- 🧭 ProductLocator
-- 📚 SmartShelfManager
-
-Pick a name that best embodies your project's essence or feel free to adjust the suggestions above!
-
----
-
-I hope this is presentable and appealing to you! The emojis and stylized Markdown will enhance the visual appearance when viewed on GitHub.
