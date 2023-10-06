@@ -96,12 +96,53 @@ namespace API.Controllers
                 ModelState.AddModelError("", "ProductShelfDedication is not exists!!");
                 return BadRequest(ModelState);
             }
-            oldProductShelfDedication.Column = newProductShelfDedication.Column;
-            oldProductShelfDedication.Face = newProductShelfDedication.Face;
-            oldProductShelfDedication.Row = newProductShelfDedication.Row;
-            oldProductShelfDedication.Sex = newProductShelfDedication.Sex;
-            oldProductShelfDedication.ProductCategory = productCategory;
-            oldProductShelfDedication.ProductCategoryFId = pcId;
+            if (newProductShelfDedication.Sex != null)
+            {
+                oldProductShelfDedication.Sex = newProductShelfDedication.Sex;
+            }
+            else
+            {
+                oldProductShelfDedication.Sex = null;
+            }
+
+            if (newProductShelfDedication.Face != null)
+            {
+                oldProductShelfDedication.Face = newProductShelfDedication.Face;
+            }
+            else
+            {
+                oldProductShelfDedication.Face = null;
+            }
+
+            if (newProductShelfDedication.Row != null)
+            {
+                oldProductShelfDedication.Row = newProductShelfDedication.Row;
+            }
+            else
+            {
+                oldProductShelfDedication.Row = null;
+            }
+
+            if (newProductShelfDedication.Column != null)
+            {
+                oldProductShelfDedication.Column = newProductShelfDedication.Column;
+            }
+            else
+            {
+                oldProductShelfDedication.Column = null;
+            }
+            if (productCategory != null)
+            {
+                oldProductShelfDedication.ProductCategory = productCategory;
+                oldProductShelfDedication.ProductCategoryFId = pcId;
+            }
+            else
+            {
+                oldProductShelfDedication.ProductCategory = null;
+                oldProductShelfDedication.ProductCategoryFId = null;
+            }
+            
+            
             if (await _productShelfDedicationService.UpdateAsync(oldProductShelfDedication))
             {
                 return Ok(await _productShelfDedicationService.ProductShelfDedicationEntityToDTO(oldProductShelfDedication));

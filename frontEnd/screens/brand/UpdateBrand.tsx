@@ -7,29 +7,12 @@ import { updateBrand , searchBrand } from '../../services/BrandService';
 import { useDataStore } from '../../component/DataHandler';
 
 const UpdateBrand: React.FC = () => {
-  const [searchKey, setSearchKey] = useState('');
+ 
   const { brand, setBrand } = useDataStore(); // Use the brand state from useDataStore
-  const {brandFound, setBrandFound} = useDataStore();
 
 
-  const handleSearchBrand = async () => {
-    try {
-      const response = await searchBrand(searchKey);
-      // Replace '/endpoint' with your API endpoint
-      if (response.status == 'success'){
-          //Alert.alert(response.message);
-          response.brand && setBrand(response.brand);              
-           setBrandFound(true);
-      }
-      else  {
-          Alert.alert(response.message)
-      }
-     
-  } catch (error:any) {
-      console.error('Error:', error);
-      Alert.alert(error)
-  }
-  };
+
+
 
   const handleUpdateBrand = async () => {
     try {
@@ -37,7 +20,7 @@ const UpdateBrand: React.FC = () => {
       const response = await updateBrand(brand);
       if (response.status == 'success') {
         Alert.alert(response.message)
-        setBrandFound(false);
+
       }
       else{
         Alert.alert(response.message)
@@ -52,17 +35,17 @@ const UpdateBrand: React.FC = () => {
 
   return (
     <View style={Styles.container}>
-      <Text style={Styles.heading}>Brand Search</Text>
-      <TextInput
-        style={Styles.input}
-        placeholder="Enter Brand Name"
-        onChangeText={setSearchKey}
-        value={searchKey}
-      />
-      <Button title="Search Brand" onPress={handleSearchBrand} />
-      {brandFound && (
+      
         <View style={Styles.productDetails}>
-          <Text>Yes, that brand exists. Update the field below.</Text>
+          <Text>Update the field below.</Text>
+         
+          <TextInput
+            style={Styles.input}
+            placeholder="ID"
+            keyboardType="numeric"
+            onChangeText={(text) => setBrand({ ...brand, Id: text })}
+            value={brand.Id}
+          />
           <TextInput
             style={Styles.input}
             placeholder="Name"
@@ -71,7 +54,6 @@ const UpdateBrand: React.FC = () => {
           />
           <Button title="Update Brand" onPress={handleUpdateBrand} />
         </View>
-      )}
     </View>
   );
 };

@@ -1,56 +1,54 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button,Alert } from 'react-native';
 import Product_CategoryDTO from '../../dataModels/ProductCategoryDTO';
 import { Styles } from '../../component/Styles';
+import { useDataStore } from '../../component/DataHandler';
+import { updateProductCategory } from '../../services/ProductCategoryService';
 
 const UpdateProductCategory: React.FC = () => {
-    const [searchKey, setSearchKey] = useState('');
-    const [foundProductCategory, setFoundProductCategory] = useState<Product_CategoryDTO | null>(null);
-    const [UpdatedProductCategory, setProductCategory] = useState<Product_CategoryDTO>({
-        Product_Category_Name:''
-      });
+    const {productCategory, setProductCategory} = useDataStore();
 
 
 
     const UpdateProductCategory = async () => {
       console.log("updating Product Category");
-    }
-    const handleSearchProductCategory = async () => {
-        // Simulate fetching data from API
-        console.log("fetching bro");
-        const fetchedProductCategory: Product_CategoryDTO = {
-            Product_Category_Name:'Sport'
-        };
-         // Simulate searching for a product by name
-         if (fetchedProductCategory.Product_Category_Name.toLowerCase() === searchKey.toLowerCase()) {
-            setFoundProductCategory(fetchedProductCategory);
-            setProductCategory(fetchedProductCategory);
-        } else {
-            setFoundProductCategory(null);
+      try {
+        // Send the updated brand data to your API for updating
+        const response = await updateProductCategory(productCategory);
+        if (response.status == 'success') {
+          Alert.alert(response.message)
+  
         }
-    };
+        else{
+          Alert.alert(response.message)
+        }
+        // Handle success and update your UI accordingly
+      } catch (error:any) {
+        console.error('Error updating product category:', error);
+        // Handle errors and display appropriate messages to the user
+        Alert.alert(error)
+      }
+    }
+
         return (
             <View style={Styles.container}>
-                <Text style={Styles.heading}>Product Category Search</Text>
-                <TextInput
-                    style={Styles.input}
-                    placeholder="Enter Product Category Name"
-                    onChangeText={setSearchKey}
-                    value={searchKey}
-                />
-                <Button title="Search Product Category" onPress={handleSearchProductCategory} />
-                {foundProductCategory && (
-                    <View style={Styles.productDetails}>
-                         <Text>Yes that Product Category exists, Update the field below.</Text>
-                         <TextInput
+      <Text style={Styles.heading}>Product Category Update</Text>
+      <TextInput
+            style={Styles.input}
+            placeholder="ID"
+            keyboardType="numeric"
+            onChangeText={(text) => setProductCategory({ ...productCategory, Id: text })}
+            value={productCategory.Id}
+          />
+      <TextInput
         style={Styles.input}
         placeholder="Name"
-        onChangeText={(text) => setProductCategory({ ...UpdatedProductCategory, Product_Category_Name: text })}
-        value={UpdatedProductCategory.Product_Category_Name}
+        onChangeText={(text) => setProductCategory({ ...productCategory, ProductsCategoryName: text })}
+        value={productCategory.ProductsCategoryName}
       />
-       <Button title="Update Product Category" onPress={UpdateProductCategory} />
-                    </View>
-                )}
+      <View style={Styles.button}>
+        <Button title="Update Product Category" onPress={UpdateProductCategory} />
+      </View>
             </View>
         );
 

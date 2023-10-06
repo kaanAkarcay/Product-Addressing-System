@@ -27,9 +27,9 @@ export const createProduct = async (product: ProductDTO): Promise<ProductRespons
 };
 
 // Retrieve a product by ID
-export const getProductById = async (id: string): Promise<ProductResponse> => {
+export const getProduct = async (barcode: string): Promise<ProductResponse> => {
   try {
-    const response = await communicator.get(`/Product/getProduct/${id}`);
+    const response = await communicator.get(`/Product/getProduct/?barcode=${barcode}`);
     if (response.status == 200 && response.data) {
       return { status: 'success', message: 'Product found', product: response.data };
     } else {
@@ -63,11 +63,11 @@ export const getProducts = async (): Promise<ProductResponse> => {
 
 // Update an existing product
 export const updateProduct = async (
-  id: number,
+ 
   product: ProductDTO
 ): Promise<ProductResponse> => {
   try {
-    const response = await communicator.put(`/Product/updateProduct/${id}`, product);
+    const response = await communicator.put(`/Product/updateProduct`, product);
     if (response.status == 200 && response.data) {
       return { status: 'success', message: 'Product updated', product: response.data };
     } else {

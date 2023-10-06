@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet ,Alert} from 'react-native';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { Styles } from '../../component/Styles';
+import SelectDropdown from 'react-native-select-dropdown'
 import { useDataStore } from '../../component/DataHandler';
-import { updateProduct } from '../../services/ProductService';
+import { createProductShelfDedication } from '../../services/ProductShelfDedicationService';
 import { getBrands } from '../../services/BrandService';
 import { getProductCategories } from '../../services/ProductCategoryService';
-import SelectDropdown from 'react-native-select-dropdown'
 
-const UpdateProduct: React.FC = () => {
-  const {product,setProduct} = useDataStore();
+const CreateProductShelfDedication: React.FC = () => {
+  const { productShelfDedication, setProductShelfDedication } = useDataStore();
   const { brands, productCategories } = useDataStore();
   const Sexes=  ["Erkek", "Kadın"]
   const [Pddata, setPdData] = useState<string[]>([]);
@@ -57,65 +57,40 @@ const UpdateProduct: React.FC = () => {
           setPdData(categoryNames.filter((name) => name !== ''));
         }
       })
-      .catch((error) => {
+      .catch((error:any) => {
         console.error('Error fetching productCategories:', error);
       });
   }, []);
   
-const handleUpdateProduct = async () => {
-    // Simulate updating the product
-    console.log('Updating product:', product);
 
+  const handleCreateProductShelfDedication = async () => {
     try {
-      const response = await updateProduct(product);
-  
-      // If the API responds with a status code of 400 (Bad Request)
-      if (response.status == 'success') {
-      Alert.alert(response.message)
-      
+      const response = await createProductShelfDedication(productShelfDedication);
+
+      if (response.status === 'success') {
+        Alert.alert('Success', 'Product Shelf Dedication created successfully');
+      } else {
+        console.error('Error creating Product Shelf Dedication:', response.message);
+        Alert.alert('Error', response.message);
       }
-      else{
-        Alert.alert(response.message)
-      }
-    
-    }catch(error:any){
-        Alert.alert(error)
+    } catch (error:any) {
+      console.error('Error creating Product Shelf Dedication:', error);
+      Alert.alert(error);
     }
-  
   };
 
   return (
     <View style={Styles.container}>
-      <Text style={Styles.heading}>Product Creation</Text>
-      <TextInput
-            style={Styles.input}
-            placeholder="ID"
-            keyboardType="numeric"
-            onChangeText={(text) => setProduct({ ...product, Id: text })}
-            value={product.Id}
-          />
-      <TextInput
-          style={Styles.input}
-          placeholder={'Barcode'}
-          keyboardType="numeric"
-          onChangeText={(text) => setProduct({ ...product, Barcode: text})}
-          value={product.Barcode}
-        />
+      <Text style={Styles.heading}>Product Shelf Dedication Creation</Text>
 
-      <TextInput
-        style={Styles.input}
-        placeholder="Product Name"
-        onChangeText={(text) => setProduct({ ...product, ProductName: text })}
-        value={product.ProductName}
-      />
-
-        <View style={Styles.selectorContainer}>
+      {/* Here, you can add all the input fields corresponding to each attribute of productShelfDedication */}
+      <View style={Styles.selectorContainer}>
         <SelectDropdown 
           data={Sexes}
           defaultButtonText="Sex"
           onSelect={(selectedItem, index) => {
             console.log(selectedItem)
-            setProduct({ ...product, Sex: selectedItem })
+            setProductShelfDedication({ ...productShelfDedication, Sex: selectedItem })
           }}
           buttonTextAfterSelection={(selectedItem, index) => {
             // text represented after item is selected
@@ -130,15 +105,41 @@ const handleUpdateProduct = async () => {
         />
 
        </View>
+       <TextInput
+          style={Styles.input}
+          placeholder={productShelfDedication.Face === 0 ? 'Face' : ' '}
+          keyboardType="numeric"
+          onChangeText={(text) => setProductShelfDedication({ ...productShelfDedication, Face: parseInt(text, 10) || 0 })}
+          value={productShelfDedication.Face === 0 ? '' : productShelfDedication.Face.toString()}
+        />
+        <TextInput
+          style={Styles.input}
+          placeholder={productShelfDedication.Row === 0 ? 'Row' : ' '}
+          keyboardType="numeric"
+          onChangeText={(text) => setProductShelfDedication({ ...productShelfDedication, Row: parseInt(text, 10) || 0 })}
+          value={productShelfDedication.Row === 0 ? '' : productShelfDedication.Row.toString()}
+        />
+        <TextInput
+          style={Styles.input}
+          placeholder={productShelfDedication.Column === 0 ? 'Column' : ' '}
+          keyboardType="numeric"
+          onChangeText={(text) => setProductShelfDedication({ ...productShelfDedication, Column: parseInt(text, 10) || 0 })}
+          value={productShelfDedication.Column === 0 ? '' : productShelfDedication.Column.toString()}
+        />
+         <TextInput
+          style={Styles.input}
+          placeholder="Shelf name"
+          onChangeText={(text) => setProductShelfDedication({ ...productShelfDedication, ShelfName: text})}
+          value={productShelfDedication.ShelfName}
+        />
 
-
-        <View style={Styles.selectorContainer}>
+<View style={Styles.selectorContainer}>
         <SelectDropdown 
           data={Bdata}
           defaultButtonText="Brand"
           onSelect={(selectedItem, index) => {
             console.log(selectedItem, index)
-            setProduct({ ...product, Brand: selectedItem })
+            setProductShelfDedication({ ...productShelfDedication, BrandName: selectedItem })
           }}
           buttonTextAfterSelection={(selectedItem, index) => {
             // text represented after item is selected
@@ -160,7 +161,7 @@ const handleUpdateProduct = async () => {
           data={Pddata}
           defaultButtonText="Product Category"
           onSelect={(selectedItem, index) => {
-            setProduct({ ...product, ProductCategory: selectedItem })
+            setProductShelfDedication({ ...productShelfDedication, ProductCategoryName: selectedItem })
           }}
           buttonTextAfterSelection={(selectedItem, index) => {
             // text represented after item is selected
@@ -175,13 +176,13 @@ const handleUpdateProduct = async () => {
         />
         </View>
 
+      {/* ... add other TextInput fields for the other attributes ... */}
 
       <View style={Styles.button}>
-        <Button title="Update Product" onPress={handleUpdateProduct} />
+        <Button title="Create Product Shelf Dedication" onPress={handleCreateProductShelfDedication} />
       </View>
-
     </View>
   );
 };
 
-export default UpdateProduct;
+export default CreateProductShelfDedication;

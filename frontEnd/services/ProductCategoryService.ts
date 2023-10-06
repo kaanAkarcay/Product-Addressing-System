@@ -69,11 +69,11 @@ export const getProductCategories = async (): Promise<ProductCategoryResponse> =
 };
 // Update an existing product category
 export const updateProductCategory = async (
-    id: number,
+    
     productCategory: ProductCategoryDTO
 ): Promise<ProductCategoryResponse> => {
     try {
-        const response = await communicator.put(`/ProductCategory/updateProductCategory/${id}`, productCategory);
+        const response = await communicator.put(`/ProductCategory/updateProductCategory`, productCategory);
         if (response.status === 200 && response.data) {
             return { status: 'success', message: 'Product Category updated', productCategory: response.data };
         } else {

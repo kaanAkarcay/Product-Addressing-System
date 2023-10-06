@@ -1,9 +1,9 @@
 interface ShelfDTO {
   Id?:string;
   ShelfName: string;
-  Row: number;
-  Column: number;
-  Face: number;
+  Row: string;
+  Column: string;
+  Face: string;
 
   }
   

@@ -14,6 +14,10 @@ namespace DomainLayer.Services
         {
             return await _uow.ProductRepository.FindAllAsync();
         }
+        public async Task<Product> FindProductById(int id)
+        {
+            return await _uow.ProductRepository.FindByIdAsync(id);
+        }
 
         public async Task<Product> FindProductAsync(long barcode)
         {

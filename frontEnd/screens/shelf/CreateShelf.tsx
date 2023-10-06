@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button,Alert } from 'react-native';
 import ShelfDTO from '../../dataModels/ShelfDTO';
 import { Styles } from '../../component/Styles';
-import communicator from '../../component/communicator';
+import { createShelf } from '../../services/ShelfService';
 import { useDataStore } from '../../component/DataHandler';
 
 const CreateShelf: React.FC = () => {
@@ -10,21 +10,28 @@ const CreateShelf: React.FC = () => {
   const {shelf,setShelf} = useDataStore();
   const reset :ShelfDTO ={
     ShelfName:'',
-    Row: 0,
-    Column: 0,
-    Face: 0
+    Row: '',
+    Column: '',
+    Face: ''
   };
 
   const handleCreateShelf = async () => {
     try {
       // Send the product category data to your API for creation
-      const response = await communicator.post('/Shelf/createShelf', shelf); // Replace with your actual create endpoint
-      console.log('Shelf created:', response.data);
-      // Handle success and update your UI accordingly
-    } catch (error) {
-      console.error('Error creating Shelf:', error);
-      // Handle errors and display appropriate messages to the user
-    }
+      const response = await createShelf(shelf);
+      console.log('Shelf created:', response.shelf);
+      if (response.status == 'success') {
+        Alert.alert(response.message)
+        
+        }
+        else{
+          Alert.alert(response.message)
+        }
+      
+      }catch(error:any){
+          Alert.alert(error)
+      }
+    
   };
 
   return (
@@ -38,24 +45,24 @@ const CreateShelf: React.FC = () => {
       />
           <TextInput
           style={Styles.input}
-          placeholder={shelf.Face === 0 ? 'Face' : ' '}
+          placeholder='Face'
           keyboardType="numeric"
-          onChangeText={(text) => setShelf({ ...shelf, Face: parseInt(text, 10) || 0 })}
-          value={shelf.Face === 0 ? '' : shelf.Face.toString()}
+          onChangeText={(text) => setShelf({ ...shelf, Face: text })}
+          value={shelf.Face}
         />
         <TextInput
           style={Styles.input}
-          placeholder={shelf.Row === 0 ? 'Row' : ' '}
+          placeholder='Row'
           keyboardType="numeric"
-          onChangeText={(text) => setShelf({ ...shelf, Row: parseInt(text, 10) || 0 })}
-          value={shelf.Row === 0 ? '' : shelf.Row.toString()}
+          onChangeText={(text) => setShelf({ ...shelf, Row:text })}
+          value={shelf.Row}
         />
         <TextInput
           style={Styles.input}
-          placeholder={shelf.Column === 0 ? 'Column' : ' '}
+          placeholder='Column'
           keyboardType="numeric"
-          onChangeText={(text) => setShelf({ ...shelf, Column: parseInt(text, 10) || 0 })}
-          value={shelf.Column === 0 ? '' : shelf.Column.toString()}
+          onChangeText={(text) => setShelf({ ...shelf, Column:text })}
+          value={shelf.Column}
         />
      
       <View style={Styles.button}>

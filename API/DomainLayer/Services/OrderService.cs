@@ -43,8 +43,10 @@ namespace DomainLayer.Services
 
             JObject jsonObject = new JObject
             {
+                ["Id"] = order.Id,
                 ["OrderType"] = order.OrderType,
                 ["AssignedTo"] = order.AssignedTo ?? string.Empty, // Handle null AssignedTo
+                ["OrderCode"] = order.OrderCode ?? string.Empty,
                 ["ProductBarcodes"] = new JArray(productBarcodes)
             };
 
@@ -67,6 +69,7 @@ namespace DomainLayer.Services
 
                 JObject orderJsonObject = new JObject
                 {
+                    ["Id"] = order.Id,
                     ["OrderType"] = order.OrderType,
                     ["AssignedTo"] = order.AssignedTo ?? string.Empty, // Handle null AssignedTo
                     ["OrderCode"] = order.OrderCode ?? string.Empty,

@@ -70,10 +70,15 @@ namespace API.Controllers
                 ModelState.AddModelError("", "Order is not exists!!");
                 return BadRequest(ModelState);
             }
+            if (order.Status == 1)
+            {
+                ModelState.AddModelError("", "This Order is already started!!");
+                return BadRequest(ModelState);
+            }
             order.Status = 1;
             if (await _orderService.UpdateAsync(order))
             {
-                return Ok(_orderService.MapOrderEntityToDtoJson(order));
+                return Ok(await _orderService.MapOrderEntityToDtoJson(order));
 
             }
             else
@@ -94,6 +99,10 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<string>>> createOrder(OrderWrapperDTO Order)
         {
+
+            Console.WriteLine("ORDERRRRRR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+
+            Console.WriteLine(Order.AssignedTo);
             var orders = await _orderService.FindAllOrdersAsync();
             string orderDtoJson = JsonConvert.SerializeObject(Order);
 
@@ -114,7 +123,7 @@ namespace API.Controllers
             if (await _orderService.UpdateAsync(order))
             {
 
-                return Ok(_orderService.MapOrderEntityToDtoJson(order));
+                return Ok(await _orderService.MapOrderEntityToDtoJson(order));
             }
             else
             {
@@ -143,7 +152,7 @@ namespace API.Controllers
             if (await _orderService.UpdateAsync(order))
             {
 
-                return Ok(_orderService.MapOrderEntityToDtoJson(order));
+                return Ok(await _orderService.MapOrderEntityToDtoJson(order));
             }
             else
             {

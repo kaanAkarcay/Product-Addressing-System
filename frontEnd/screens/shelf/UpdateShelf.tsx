@@ -1,57 +1,76 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button,Alert } from 'react-native';
 import ShelfDTO from '../../dataModels/ShelfDTO';
 import { Styles } from '../../component/Styles';
-
+import { updateShelf } from '../../services/ShelfService';
+import { useDataStore } from '../../component/DataHandler';
 const UpdateShelf: React.FC = () => {
-    const [searchKey, setSearchKey] = useState('');
-    const [foundShelf, setFoundShelf] = useState<ShelfDTO | null>(null);
-    const [UpdatedShelf, setShelf] = useState<ShelfDTO>({
-        Shelf_ID:''
-      });
-
-
+    const {shelf,setShelf} = useDataStore();
 
     const UpdateShelf = async () => {
       console.log("updating Shelf");
-    }
-    const handleSearchShelf = async () => {
-        // Simulate fetching data from API
-        console.log("fetching bro");
-        const fetchedShelf: ShelfDTO = {
-           Shelf_ID:'AA'
-        };
-         // Simulate searching for a product by name
-         if (fetchedShelf.Shelf_ID.toLowerCase() === searchKey.toLowerCase()) {
-            setFoundShelf(fetchedShelf);
-            setShelf(fetchedShelf);
-        } else {
-            setFoundShelf(null);
+      try {
+        // Send the product category data to your API for creation
+        console.log(shelf)
+        const response = await updateShelf(shelf); // Replace with your actual create endpoint
+        if (response.status == 'success') {
+            Alert.alert(response.message)
+    
+          }
+          else{
+            Alert.alert(response.message)
+          }
+          // Handle success and update your UI accordingly
+        } catch (error:any) {
+          console.error('Error updating shelf:', error);
+          // Handle errors and display appropriate messages to the user
+          Alert.alert(error)
         }
-    };
+    }
+
         return (
             <View style={Styles.container}>
-                <Text style={Styles.heading}>Shelf Search</Text>
-                <TextInput
-                    style={Styles.input}
-                    placeholder="Enter Shelf Name"
-                    onChangeText={setSearchKey}
-                    value={searchKey}
-                />
-                <Button title="Search Shelf" onPress={handleSearchShelf} />
-                {foundShelf && (
-                    <View style={Styles.productDetails}>
-                         <Text>Yes that Shelf exists, Update the field below.</Text>
-                         <TextInput
+              <Text style={Styles.heading}>Shelf Creation</Text>
+              <TextInput
+            style={Styles.input}
+            placeholder="ID"
+            keyboardType="numeric"
+            onChangeText={(text) => setShelf({ ...shelf, Id: text })}
+            value={shelf.Id}
+          />
+      <TextInput
         style={Styles.input}
-        placeholder="ID"
-        onChangeText={(text) => setShelf({ ...UpdatedShelf, Shelf_ID: text })}
-        value={UpdatedShelf.Shelf_ID}
+        placeholder="Shelf Name"
+        onChangeText={(text) => setShelf({ ...shelf, ShelfName: text })}
+        value={shelf.ShelfName}
       />
-       <Button title="Update Shelf" onPress={UpdateShelf} />
-                    </View>
-                )}
-            </View>
+          <TextInput
+          style={Styles.input}
+          placeholder='Face'
+          keyboardType="numeric"
+          onChangeText={(text) => setShelf({ ...shelf, Face: text })}
+          value={shelf.Face}
+        />
+        <TextInput
+          style={Styles.input}
+          placeholder='Row'
+          keyboardType="numeric"
+          onChangeText={(text) => setShelf({ ...shelf, Row:text })}
+          value={shelf.Row}
+        />
+        <TextInput
+          style={Styles.input}
+          placeholder='Column'
+          keyboardType="numeric"
+          onChangeText={(text) => setShelf({ ...shelf, Column:text })}
+          value={shelf.Column}
+        />
+     
+      <View style={Styles.button}>
+      <Button  title="update Shelf" onPress={UpdateShelf} />
+      </View>
+    
+    </View>
         );
 
                 }

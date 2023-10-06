@@ -88,7 +88,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<IEnumerable<string>>> updateProduct(ProductDTO newProduct)
         {
-            var product = await _productService.FindProductAsync(newProduct.Barcode);
+            var product = await _productService.FindProductById(newProduct.Id);
             var newBrand = await _productService.GetBrandAsync(newProduct.Brand);
             var newProductCategory = await _productService.GetProductCategoryAsync(newProduct.ProductCategory);
             if (product == null)

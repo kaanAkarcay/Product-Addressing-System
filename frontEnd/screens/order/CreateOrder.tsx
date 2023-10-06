@@ -14,6 +14,14 @@ const CreateOrder: React.FC = () => {
   const [productBarcode, setProductBarcode] = useState('');
   const [quantity, setQuantity] = useState(1);
 
+
+  const nullable ={
+    OrderType: '',
+    AssignedTo: '',
+    OrderCode:'',
+    ProductBarcodes: []
+  }
+
   const handleQuantityChange = (change:any) => {
     // Ensure quantity is at least 1
     const newQuantity = Math.max(quantity + change, 1);
@@ -29,43 +37,52 @@ const CreateOrder: React.FC = () => {
 
 
     }
-    const handleAddProduct= ()=>{
-        console.log('handling products')
-        const newProducts = Array(quantity).fill(productBarcode);
-        setProducts([...products, ...newProducts]);
-        console.log(products)
-
-    }
+    const handleAddProduct = () => {
+      console.log('handling products');
+      
+      // Create a local copy of the current products
+      let tempProducts = [...products];
+  
+      // Make required modifications to this local copy
+      const newProducts = Array(quantity).fill(productBarcode);
+      tempProducts = [...tempProducts, ...newProducts];
+  
+      // Set the products state once with the updated value
+      setProducts(tempProducts);
+  
+      console.log(tempProducts);
+  };
+  
   const handleCreateOrder = async () => {
-    try {
-      setOrder({...order, AssignedTo:'admin'})
-      setOrder({ ...order, ProductBarcodes: [...order.ProductBarcodes, ...products] });
+    let tempOrder = { ...order };
 
-      // const a = {
-      //   AssignedTo:'admin',
-      //   ProductBarcodes:products,
-      //   OrderCode:'',
-      //   OrderType:"1"
-      // }
+    // Make all required modifications to this local order
+    tempOrder.AssignedTo = 'admin';
+    tempOrder.ProductBarcodes = [...tempOrder.ProductBarcodes, ...products];
+
+    // Set the order state once with the updated value
+    setOrder(tempOrder);
+    try {
+      
+  
     
 
       
         //setOrder(a)
-        console.log(order)
-        console.log(products)
+        
       // Call the createBrand service to create a new brand
-      const response = await createOrder(order);
+      const response = await createOrder(tempOrder);
 
       if (response.status === 'success') {
         // Brand creation was successful
         
-
+      
         // Clear the input field and update your UI accordingly
        
 
         // Show a success message to the user (you can use a custom alert component)
         Alert.alert('Success', 'Order created successfully');
-
+        
       } else {
         // Brand creation failed
         console.error('Error creating order:', response.message);
@@ -79,6 +96,7 @@ const CreateOrder: React.FC = () => {
       Alert.alert(error);
       // Handle unexpected errors and display appropriate messages to the user
     }
+    setOrder(nullable)
   };
 
   return (

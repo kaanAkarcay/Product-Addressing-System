@@ -53,8 +53,20 @@ const drawerMenu = [
         menuList: [
           { title: 'Create Order', screenName: 'Create Order' },
           { title: 'List Orders', screenName: 'List Orders' },
-          { title: 'Update Shelf', screenName: 'Update Shelf' },
-          { title: 'Delete Shelf', screenName: 'Delete Shelf' },
+          { title: 'Start Orders', screenName: 'Start Orders' },
+       
+         
+        ],
+        
+      },
+      {
+        title: 'Product Shelf Dedications',
+        menuList: [
+          { title: 'Create Product Shelf Dedication', screenName: 'Create Product Shelf Dedication' },
+          { title: 'Read Product Shelf Dedication', screenName: 'Read Product Shelf Dedication' },
+          { title: 'Update Product Shelf Dedication', screenName: 'Update Product Shelf Dedication' },
+          { title: 'Delete Product Shelf Dedication', screenName: 'Delete Product Shelf Dedication' },
+       
          
         ],
         

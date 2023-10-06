@@ -9,7 +9,6 @@ import { useDataStore } from '../component/DataHandler';
 import { getBrands } from '../services/BrandService';
 import { getProducts } from '../services/ProductService';
 import { getProductCategories } from '../services/ProductCategoryService';
-
 export default function InsertProduct() {
   const {request, setRequest} = useDataStore();
   const [searchKey, setSearchKey] = useState('');
@@ -24,6 +23,7 @@ const [selectedProductCategory, setSelectedProductCategory] = useState('');
 const { brands, productCategories } = useDataStore();
 
 useEffect(() => {
+
   getBrands(); // Fetch brands and update the brands state in your data store
   getProductCategories(); // Fetch product categories and update the productCategories state
 }, []);

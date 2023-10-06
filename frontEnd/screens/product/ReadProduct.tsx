@@ -4,7 +4,7 @@ import { Styles } from '../../component/Styles';
 import ProductDTO from '../../dataModels/ProductDTO';
 import communicator from '../../component/communicator';
 import { useDataStore } from '../../component/DataHandler';
-import { getProductById } from '../../services/ProductService';
+import { getProduct } from '../../services/ProductService';
 
 const ReadProduct: React.FC = () => {
     const [searchKey, setSearchKey] = useState('');
@@ -14,7 +14,7 @@ const ReadProduct: React.FC = () => {
     const handleSearchProduct = async () => {
         try {
             // Simulate fetching data from API based on the product name
-            const response = await getProductById(searchKey);
+            const response = await getProduct(searchKey);
             if (response.status == 'success') {
                 Alert.alert(response.message)
                 response.product && setProduct(response.product);

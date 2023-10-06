@@ -22,6 +22,11 @@ import UpdateShelf from '../screens/shelf/UpdateShelf';
 import DeleteShelf from '../screens/shelf/DeleteShelf';
 import CreateOrder from '../screens/order/CreateOrder';
 import ListOrders from '../screens/order/ListOrders';
+import StartOrder from '../screens/order/StartOrder';
+import CreateProductShelfDedication from '../screens/productshelfdedication/CreateProductShelfDedication';
+import ReadProductShelfDedication from '../screens/productshelfdedication/ReadProductShelfDedication';
+import UpdateProductShelfDedication from '../screens/productshelfdedication/UpdateProductShelfDedication';
+import DeleteProductShelfDedication from '../screens/productshelfdedication/DeleteProductShelfDedication';
 
 const Tab = createBottomTabNavigator();
 export default function TabNavigation() {
@@ -57,6 +62,12 @@ export default function TabNavigation() {
 
       <Tab.Screen name="Create Order" component={CreateOrder} options={{ headerShown: false, tabBarButton: () => null }} />
       <Tab.Screen name="List Orders" component={ListOrders} options={{ headerShown: false, tabBarButton: () => null }} />
+      <Tab.Screen name="Start Orders" component={StartOrder} options={{ headerShown: false, tabBarButton: () => null }} />
+
+      <Tab.Screen name="Create Product Shelf Dedication" component={CreateProductShelfDedication} options={{ headerShown: false, tabBarButton: () => null }} />
+      <Tab.Screen name="Read Product Shelf Dedication" component={ReadProductShelfDedication} options={{ headerShown: false, tabBarButton: () => null }} />
+      <Tab.Screen name="Update Product Shelf Dedication" component={UpdateProductShelfDedication} options={{ headerShown: false, tabBarButton: () => null }} />
+      <Tab.Screen name="Delete Product Shelf Dedication" component={DeleteProductShelfDedication} options={{ headerShown: false, tabBarButton: () => null }} />
 
     </Tab.Navigator>
   );

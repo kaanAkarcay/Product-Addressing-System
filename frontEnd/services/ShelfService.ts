@@ -70,7 +70,7 @@ export const searchShelf = async (searchKey: string): Promise<ShelfResponse> => 
   export const deleteShelf = async (searchKey: string): Promise<ShelfResponse> => {
     try {
       // Send the search key to your API for fetching the shelf
-      const response = await communicator.delete(`/Shelf/deleteShelf?name=${searchKey}`);  
+      const response = await communicator.delete(`/Shelf/deleteShelf?shelfName=${searchKey}`);  
       // Check if the API call was successful and found a shelf
       if (response.status === 200 && response.data) {
         // Assuming you are using Zustand for state management, update the shelf in the data store
@@ -90,7 +90,7 @@ export const searchShelf = async (searchKey: string): Promise<ShelfResponse> => 
   export const updateShelf = async (newShelf: ShelfDTO): Promise<ShelfResponse> => {
     try {
       // Send the search key to your API for fetching the shelf
-      const response = await communicator.patch(`/Shelf/updateShelf`,newShelf);  
+      const response = await communicator.put(`/Shelf/updateShelf`,newShelf);  
       // Check if the API call was successful and found a shelf
       if (response.status === 200 && response.data) {
         // Assuming you are using Zustand for state management, update the shelf in the data store

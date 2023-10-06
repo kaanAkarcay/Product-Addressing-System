@@ -7,7 +7,12 @@ type OrderResponse = {
     message: string;
     order?: OrderWrapperDTO;
   };
-  
+
+  type Response = {
+    status: 'success' | 'error';
+    message: string;
+    orders?: string;
+  };
 
 
 export const createOrder = async (order: OrderWrapperDTO): Promise<OrderResponse> => {
@@ -48,7 +53,7 @@ export const createOrder = async (order: OrderWrapperDTO): Promise<OrderResponse
         const setDataStoreOrder = useDataStore.getState().setOrder;
         setDataStoreOrder(response.data);
         setDataStoreOrderFound(true);
-        
+        console.log(useDataStore.getState().order.OrderCode);
   
         return { status: 'success', message: 'Order found', order: response.data };
       } else {
@@ -59,14 +64,14 @@ export const createOrder = async (order: OrderWrapperDTO): Promise<OrderResponse
       }
     } catch (error:any) {
       console.error('Error:', error);
-      const errorMessage = error.response?.data?.message || 'An error occurred while searching for the Order';
+      const errorMessage = error.message || 'An error occurred while searching for the Order';
       return { status: 'error', message: errorMessage };
     }
   };
 
 
 
-  export const getOrders = async (): Promise<OrderResponse> => {
+  export const getOrders = async (): Promise<Response> => {
     const setDataStoreOrderFound = useDataStore.getState().setOrderFound;
     try {
       // Send the search key to your API for fetching the shelf
@@ -75,13 +80,14 @@ export const createOrder = async (order: OrderWrapperDTO): Promise<OrderResponse
   
       // Check if the API call was successful and found a shelf
       if (response.status === 200 && response.data) {
+        console.log("ilk" + useDataStore.getState().orderFound)
         // Assuming you are using Zustand for state management, update the shelf in the data store
         const setDataStoreOrders = useDataStore.getState().setOrders;
         setDataStoreOrders(response.data);
         setDataStoreOrderFound(true);
-        
+        console.log("after"+useDataStore.getState().orders)
   
-        return { status: 'success', message: 'Orders found' };
+        return { status: 'success', message: 'Orders found' , orders:response.data};
       } else {
         setDataStoreOrderFound(false);
         return { status: 'error', message: 'Orders not found' };
@@ -120,7 +126,7 @@ export const createOrder = async (order: OrderWrapperDTO): Promise<OrderResponse
   export const startOrder = async (searchKey: string): Promise<OrderResponse> => {
     try {
       // Send the search key to your API for fetching the shelf
-      const response =await communicator.put(`/Order/startOrder?OrderCode=${searchKey}`);
+      const response =await communicator.patch(`/Order/startOrder?OrderCode=${searchKey}`);
       // Check if the API call was successful and found a shelf
       if (response.status === 200 && response.data) {
         // Assuming you are using Zustand for state management, update the shelf in the data store

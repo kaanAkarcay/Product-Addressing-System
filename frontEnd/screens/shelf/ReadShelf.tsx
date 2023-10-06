@@ -1,37 +1,36 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button ,Alert} from 'react-native';
 import ShelfDTO from '../../dataModels/ShelfDTO';
 import { Styles } from '../../component/Styles';
 import communicator from '../../component/communicator';
 import { useDataStore } from '../../component/DataHandler';
+import { searchShelf } from '../../services/ShelfService';
 
 const ReadShelf: React.FC = () => {
     const [searchKey, setSearchKey] = useState('');
     const {shelf, setShelf} = useDataStore();
-    const [shelfFound, setShelfFound] = useState<boolean>(false);
+    const {shelfFound, setShelfFound} = useDataStore();
 
-    const reset : ShelfDTO = {
-        ShelfName:'',
-        Face:0,
-        Row:0,
-        Column:0
-    }
+   
    
     const handleSearchShelf = async () => {
         // Simulate fetching data from API
         console.log("fetching bro");
         try{
-        const response = await communicator.get(`/Shelf/getShelf?shelfName=${searchKey}`);
+        const response = await searchShelf(searchKey)
         // Check if the API call was successful and found a product category
-        if (response.status === 200 && response.data) {
-            setShelf(response.data);
+        if (response.status == 'success' && response.shelf) {
+            setShelf(response.shelf);
             setShelfFound(true);
+            Alert.alert(response.message)
+
         } else {
-            setShelf(reset);
+            Alert.alert(response.message)
+
         }
-    } catch (error) {
+    } catch (error:any) {
         console.error('Error:', error);
-        (reset);
+        
     }
     };
         return (

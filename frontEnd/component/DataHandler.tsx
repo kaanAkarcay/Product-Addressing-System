@@ -98,9 +98,9 @@ productShelfDedications:[],
   productCategories:[],
   shelf:{
     ShelfName: '',
-    Row: 0,
-    Column: 0,
-    Face: 0
+    Row: '',
+    Column: '',
+    Face: ''
   },
   shelves:[],
   request:'',
